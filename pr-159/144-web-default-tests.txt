@@ -1,0 +1,63 @@
+Issue #144 — browser-safe web control defaults: native test evidence
+worktree HEAD f06ece27 (fix/issues-144-158), preset ci-test
+
+Noise filter: boilerplate lines repeated by every test have been dropped —
+"cfg setting not found: ..." (the config layer probes each key while the tests
+build synthetic configs), "Registered N class pack ...", "Installed 1 class
+pack(s) ...", "Restored default campaign ...", and the nix dev-shell banner.
+Nothing else is edited; every gtest RUN/OK/PASSED line is verbatim.
+
+-------------------------------------------------------------------------------
+$ SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy OPENGLAD_CONFIG_DIR=$(mktemp -d) \
+    ./build/ci-test/og_test_input \
+    --gtest_filter="InputKeybinds.web_defaults*:InputKeybinds.web_cfg_migration*:InputKeybinds.native_defaults_still_ctrl_alt"
+
+Creating screen 640x400
+Note: Google Test filter = InputKeybinds.web_defaults*:InputKeybinds.web_cfg_migration*:InputKeybinds.native_defaults_still_ctrl_alt
+[==========] Running 6 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 6 tests from InputKeybinds
+[ RUN      ] InputKeybinds.web_defaults_move_p1_fire_and_special_off_ctrl_alt
+[       OK ] InputKeybinds.web_defaults_move_p1_fire_and_special_off_ctrl_alt (0 ms)
+[ RUN      ] InputKeybinds.native_defaults_still_ctrl_alt
+[       OK ] InputKeybinds.native_defaults_still_ctrl_alt (0 ms)
+[ RUN      ] InputKeybinds.web_defaults_do_not_collide_with_any_player_mode
+[       OK ] InputKeybinds.web_defaults_do_not_collide_with_any_player_mode (0 ms)
+[ RUN      ] InputKeybinds.web_cfg_migration_rewrites_stale_ctrl_binding_once
+[       OK ] InputKeybinds.web_cfg_migration_rewrites_stale_ctrl_binding_once (0 ms)
+[ RUN      ] InputKeybinds.web_cfg_migration_never_touches_user_rebinds_or_native_loads
+[       OK ] InputKeybinds.web_cfg_migration_never_touches_user_rebinds_or_native_loads (0 ms)
+[ RUN      ] InputKeybinds.web_cfg_migration_follows_the_profile_zero_seat
+[       OK ] InputKeybinds.web_cfg_migration_follows_the_profile_zero_seat (0 ms)
+[----------] 6 tests from InputKeybinds (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 6 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 6 tests.
+
+-------------------------------------------------------------------------------
+$ ./build/ci-test/og_unit_core --gtest_filter="WebControlDefaults.*"
+
+Note: Google Test filter = WebControlDefaults.*
+[==========] Running 7 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 7 tests from WebControlDefaults
+[ RUN      ] WebControlDefaults.web_mode_moves_p1_fire_and_special
+[       OK ] WebControlDefaults.web_mode_moves_p1_fire_and_special (0 ms)
+[ RUN      ] WebControlDefaults.web_replacements_are_the_documented_keycodes
+[       OK ] WebControlDefaults.web_replacements_are_the_documented_keycodes (0 ms)
+[ RUN      ] WebControlDefaults.native_mode_passes_everything_through
+[       OK ] WebControlDefaults.native_mode_passes_everything_through (0 ms)
+[ RUN      ] WebControlDefaults.other_profiles_untouched_even_in_web_mode
+[       OK ] WebControlDefaults.other_profiles_untouched_even_in_web_mode (0 ms)
+[ RUN      ] WebControlDefaults.non_fire_special_slots_untouched_in_web_mode
+[       OK ] WebControlDefaults.non_fire_special_slots_untouched_in_web_mode (0 ms)
+[ RUN      ] WebControlDefaults.migration_moves_only_exact_old_default
+[       OK ] WebControlDefaults.migration_moves_only_exact_old_default (0 ms)
+[ RUN      ] WebControlDefaults.native_build_flag_off
+[       OK ] WebControlDefaults.native_build_flag_off (0 ms)
+[----------] 7 tests from WebControlDefaults (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 7 tests from 1 test suite ran. (9 ms total)
+[  PASSED  ] 7 tests.

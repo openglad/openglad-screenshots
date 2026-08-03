@@ -1,0 +1,54 @@
+==============================================================================
+#145 yell cue regression test (red/green transcript)
+Test: GameLoop.game_frame_yell_delivers_sound_and_notification_to_mirror
+Binary: build/ci-test/og_test_game_core (branch fix/issues-144-158)
+==============================================================================
+
+--- BEFORE: the fix's two emit lines in src/gameplay/sim_input_handler.cpp
+--- (og::sim::emit_sound / og::sim::emit_event_text for the yell) replaced by
+--- (void)sim_events; and rebuilt -> the cue never reaches the mirror (RED)
+
+[ RUN      ] GameLoop.game_frame_yell_delivers_sound_and_notification_to_mirror
+Saving save: test_game_loop_yell_cue
+Saving campaign status: org.openglad.gladiator
+Saving save: save0
+Saving campaign status: org.openglad.gladiator
+Loading save: test_game_loop_yell_cue
+Loading campaign: org.openglad.gladiator
+Loading save: save0
+Loading campaign: org.openglad.gladiator
+tests/test_game_loop.cpp:3290: Failure
+Value of: saw_text
+  Actual: false
+Expected: true
+the yell should print "Yo!" on the mirror's HUD
+
+tests/test_game_loop.cpp:3292: Failure
+Value of: sounds.saw(SOUND_YO)
+  Actual: false
+Expected: true
+the yell should play the yo clip through the platform bridge
+
+[  FAILED  ] GameLoop.game_frame_yell_delivers_sound_and_notification_to_mirror (25 ms)
+[==========] 1 test from 1 test suite ran. (25 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] GameLoop.game_frame_yell_delivers_sound_and_notification_to_mirror
+
+ 1 FAILED TEST
+
+--- AFTER: fix restored (git checkout HEAD -- src/gameplay/sim_input_handler.cpp)
+--- and rebuilt -> sound + notification delivered to the mirror (GREEN)
+
+[ RUN      ] GameLoop.game_frame_yell_delivers_sound_and_notification_to_mirror
+Saving save: test_game_loop_yell_cue
+Saving campaign status: org.openglad.gladiator
+Saving save: save0
+Saving campaign status: org.openglad.gladiator
+Loading save: test_game_loop_yell_cue
+Loading campaign: org.openglad.gladiator
+Loading save: save0
+Loading campaign: org.openglad.gladiator
+[       OK ] GameLoop.game_frame_yell_delivers_sound_and_notification_to_mirror (23 ms)
+[==========] 1 test from 1 test suite ran. (23 ms total)
+[  PASSED  ] 1 test.

@@ -1,0 +1,51 @@
+=== Difficulty ===
+   1. Difficulty: Battle
+   2. Respawns: Off
+   3. Spawn Delay: Normal
+   4. Permadeath: On
+   5. Generators: Normal
+   6. Infinite Gold: Off
+   7. Back
+Choice: Infinite Gold: On
+
+=== Difficulty ===
+   1. Difficulty: Battle
+   2. Respawns: Off
+   3. Spawn Delay: Normal
+   4. Permadeath: On
+   5. Generators: Normal
+   6. Infinite Gold: On
+   7. Back
+Choice: 
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Difficulty
+   4. Level Editor
+   5. Game Settings
+   6. Help
+   7. Quit
+   8. Load Company
+Choice: 
+Team: Tom (SOLDIER)
+Gold: INF
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Back
+   8. Networking
+   9. Scenario
+  10. Teams: Auto
+  11. Limit: Map
+  12. Troops: Scen
+Choice: 
+--- Hire: SOLDIER (1/14) ---
+Name: Arthur
+STR: 12  DEX: 6  CON: 12  INT: 8  ARM: 9  LVL: 1
+Cost: 250  |  Gold: INF
+[N]ext  [P]rev  [H]ire  [B]ack: 
