@@ -1,0 +1,94 @@
+================================================================================
+ #247  TEXT PICKER: THE PREVIEW AND THE LAUNCH DISAGREED
+ scen 822 (Soccer: FOURSQUARE), seed 1234, one human company member
+ merge base : master 25113b61        branch : feature/match-knobs-timelimit eccb04ea
+ env        : SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy SDL_RENDER_DRIVER=software
+              OPENGLAD_CONFIG_DIR=$(mktemp -d)   (fresh per run)
+ driver     : repro/troops_sweep.sh <binary> <label> raw/
+================================================================================
+
+ key decode: 1 = Begin New Game | <blank> = default company name
+             5 = Ready -> Team Build | 10 = Scenario | 2 = Set Level | 822
+             6 = TROOPS toggle (ALL -> OWN -> FAIR)
+             3 = View Scenario (the PREVIEW)  |  8 = Back, 6 = GO! (the LAUNCH)
+
+ preview: $ printf '1\n\n5\n10\n2\n822\n<toggles>3\n\n'  | ./openglad_text --campaign modes --level 822 --seed 1234
+ launch : $ printf '1\n\n5\n10\n2\n822\n<toggles>8\n6\ntick 10\ncensus\nquit\n' | ./openglad_text --campaign modes --level 822 --seed 1234
+
+================================================================================
+ THE MATRIX -- what the preview promised vs what the launch actually built
+================================================================================
+
+  BUILD  | TROOPS   | PREVIEW says           | LAUNCH team_counts       | AGREE
+  -------+----------+------------------------+--------------------------+------
+  master | ALL      | BOT SQUAD (5)          | [1,5,5,5,0,0,0,0]        | yes
+  master | OWN      | BOT SQUAD (5)          | [1,5,5,5,0,0,0,0]        | yes
+  master | FAIR     | MATCHED BOTS (1)       | [1,5,5,5,0,0,0,0]        | NO  <-- #247
+  branch | ALL      | BOT SQUAD (5)          | [1,5,5,5,0,0,0,0]        | yes
+  branch | OWN      | BOT SQUAD (5)          | [1,5,5,5,0,0,0,0]        | yes
+  branch | FAIR     | MATCHED BOTS (1)       | [1,1,1,1,0,0,0,0]        | yes
+
+  (team_counts is [red, green, blue, yellow, ...]; red = your 1 company member,
+   the other three are the bot sides the staged match filled.)
+
+================================================================================
+ THE HEADLINE PAIR -- TROOPS: FAIR, verbatim
+================================================================================
+
+--- MASTER 25113b61, PREVIEW -------------------------------------------------
+$ printf '1\n\n5\n10\n2\n822\n6\n6\n3\n\n' | ./openglad_text --campaign modes --level 822 --seed 1234
+--- SCEN 822: Soccer: FOURSQUARE ---
+MATCH: SOCCER - 4 TEAMS ACTIVE
+  RED TEAM  ACTIVE - COMPANY (1)
+  GREEN TEAM  ACTIVE - MATCHED BOTS (1)
+  BLUE TEAM  ACTIVE - MATCHED BOTS (1)
+  YELLOW TEAM  ACTIVE - MATCHED BOTS (1)
+SEATS: CO-OP
+  P1 YOU - RED TEAM
+
+RED TEAM (YOURS)
+  Arthur - SOLDIER Lv 1
+
+GREEN TEAM
+  1x MAGE Lv 3
+
+BLUE TEAM
+  1x MAGE Lv 3
+
+YELLOW TEAM
+  1x MAGE Lv 3
+Press Enter to continue...
+
+--- MASTER 25113b61, LAUNCH (the same knobs, GO!) ----------------------------
+$ printf '1\n\n5\n10\n2\n822\n6\n6\n8\n6\ntick 10\ncensus\nquit\n' | ./openglad_text --campaign modes --level 822 --seed 1234
+{"cmd":"census","tick":10,"team_counts":[1,5,5,5,0,0,0,0],"dormant_counts":[0,0,0,0,0,0,0,0] ...
+  ^ the preview promised MATCHED BOTS (1) per side; the launch built 5 per side.
+
+--- BRANCH eccb04ea, PREVIEW -------------------------------------------------
+$ printf '1\n\n5\n10\n2\n822\n6\n6\n3\n\n' | ./openglad_text --campaign modes --level 822 --seed 1234
+--- SCEN 822: Soccer: FOURSQUARE ---
+MATCH: SOCCER - 4 TEAMS ACTIVE
+  RED TEAM  ACTIVE - COMPANY (1)
+  GREEN TEAM  ACTIVE - MATCHED BOTS (1)
+  BLUE TEAM  ACTIVE - MATCHED BOTS (1)
+  YELLOW TEAM  ACTIVE - MATCHED BOTS (1)
+SEATS: CO-OP
+  P1 YOU - RED TEAM
+
+RED TEAM (YOURS)
+  Arthur - SOLDIER Lv 1
+
+GREEN TEAM
+  1x MAGE Lv 3
+
+BLUE TEAM
+  1x MAGE Lv 3
+
+YELLOW TEAM
+  1x MAGE Lv 3
+Press Enter to continue...
+
+--- BRANCH eccb04ea, LAUNCH (the same knobs, GO!) ----------------------------
+$ printf '1\n\n5\n10\n2\n822\n6\n6\n8\n6\ntick 10\ncensus\nquit\n' | ./openglad_text --campaign modes --level 822 --seed 1234
+{"cmd":"census","tick":10,"team_counts":[1,1,1,1,0,0,0,0],"dormant_counts":[0,0,0,0,0,0,0,0] ...
+  ^ preview and launch now agree: 1 matched bot per side.

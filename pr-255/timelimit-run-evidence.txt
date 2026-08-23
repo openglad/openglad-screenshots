@@ -1,0 +1,26 @@
+CAPTURE SET C evidence - branch feature/match-knobs-timelimit @ d467acad871300539858596575c9429f1cdcbc28
+date: 2026-08-23T16:27:46-07:00
+
+=== A. openglad_demo (shipping binary, seam (a): OPENGLAD_DEMO_MATCH_TIME_LIMIT) ===
+-- knob=720, soccer 822, seed 7, TEAM_SIZE=4 : 719 rendered frames, then:
+Saving campaign status: modes
+VICTORY!, SOCCER: RED TEAM WINS!
+Moving on to
+823. Soccer: BONEYARD CUP
+-- knob=1440, same seed/scenario : 1439 rendered frames, then:
+Saving save: save0.tmp
+Saving campaign status: modes
+DEFEAT!, SOCCER: BLUE TEAM WINS!
+Get ready for a rematch!
+-- knob UNSET (map's own 10800), same seed/scenario, MAX_FRAMES=1200:
+openglad_demo: 1 sessions initialized, spawning 1 worker threads
+openglad_demo: 1200 sim ticks, 1200 rendered frames in 20.004 s (60.0 fps, 59.99 ticks/s)
+openglad_demo: captured 1200 frames to /home/yans/code/openglad/build/media/pr-match-knobs/raw/control
+-- frames 00000..00718 of the knob=720 run are byte-identical (md5) to the control run's;
+   frames 00719/00900/01199 of the knob=1440 run are byte-identical to the control run's.
+
+=== B. TESTING-build harness (repro/timelimit_shot.cpp), soccer 822, save.time_limit set directly ===
+time_limit=720  -> [timelimit_shot] match ended after tick 720   (frame 00720 carries BLUE TEAM WINS!)
+time_limit=0    -> [timelimit_shot] ended=0 last_tick=901        (map's own 10800; still playing)
+time_limit=3600 -> [timelimit_shot] match ended after tick 2228  (score win first: OWN GOAL! BLUE +1)
+PPM frames 00601..00719 of the 720 run and the 0 run are byte-identical; they first differ at 00720.
