@@ -1,0 +1,57 @@
+BEFORE (unfixed tree d25249f3) -- issue #276
+openglad_text --protocol --campaign modes --level <N> --team 0,1 --seed 42, 'tick 120'
+No picker save behind --protocol, so every FILL band sits at its stored 0 = NONE,
+which is exactly the default an SDL host sees on a fresh MATCH SETUP / LINEUP page.
+
+ents = LIVE entities in the tick-120 state dump; mode = the mode plugin's own name
+from that dump ('' = no mode ever initialized).
+
+ lvl  ents ticks ended@tick mode.active mode    live entity teams
+-----------------------------------------------------------------
+ 300     2     2          2       False         [0]
+ 301     2     2          2       False         [0]
+ 302     4     2          2       False         [0, 4]
+ 303     4     2          2       False         [0, 5, 6]
+ 304     4     2          2       False         [0, 7]
+ 305    10   120       None        True TDM     [0, 1, 2, 3]
+ 500     2     2          2       False         [0]
+ 501     7     2          2       False         [0]
+ 502     2     2          2       False         [0]
+ 503     2     2          2       False         [0]
+ 504     2     2          2       False         [0]
+ 505     2     2          2       False         [0]
+ 506     2     2          2       False         [0]
+ 507     2     2          2       False         [0]
+ 508     2     2          2       False         [0]
+ 509     2     2          2       False         [0]
+ 800    13   120       None        True ONSLAU  [0, 1]
+ 801    26   120       None        True ONSLAU  [0, 1]
+ 802    28   120       None        True ONSLAU  [0, 1, 2]
+ 803    22   120       None        True ONSLAU  [0, 1, 7]
+ 820     2     2          2       False         [0]
+ 821     2     2          2       False         [0]
+ 822     2     2          2       False         [0]
+ 823     5   120       None        True SOCCER  [0, 1, 4]
+ 824     2     2          2       False         [0]
+ 825     2     2          2       False         [0]
+ 826     2     2          2       False         [0]
+ 827     2     2          2       False         [0]
+ 828     5   120       None        True BASKET  [0, 1, 4]
+ 829     2     2          2       False         [0]
+ 840     3   120       None        True MUTANT  [20, 30]
+ 841     2   120       None        True MUTANT  [28, 29]
+ 842     2   120       None        True MUTANT  [23, 25]
+ 843     2   120       None        True MUTANT  [28, 29]
+ 850     3   120       None        True FFA     [22, 26]
+ 851     3   120       None        True FFA     [22, 26]
+ 852     2   120       None        True FFA     [22, 26]
+ 853     4   120       None        True FFA     [0, 22, 26]
+ 854     2   120       None        True FFA     [22, 26]
+ 855     2   120       None        True FFA     [22, 26]
+
+23 of 40 shipped multiplayer arena scenarios END (game_ended) inside the 120-tick window;
+every one of them ends at tick 2 with mode.active == false -- the mode refused init for want
+of a second team, classic rules took over, GameWorld::level_done went to 2 ('no valid foes')
+and the level was scored as a WIN and advanced to next_level.
+The 17 survivors are the maps that ship their own authored units on other teams
+(Onslaught 800-803, Mutant 840-843, FFA 850-855, TDM 305, Soccer 823, Basketball 828).

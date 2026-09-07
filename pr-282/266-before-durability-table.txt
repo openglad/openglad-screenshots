@@ -1,0 +1,31 @@
+ISSUE #266 BEFORE -- gladiator scen17 "THE CITY OF NUTHRAM" (unfixed tree d25249f3)
+Derived stats per living, from the authored .fss level byte and the
+engine formulas: living::set_difficulty (src/gameplay/living.cpp:612) +
+each family pack base row (packs/core/families/living-*.lua).
+  max_hp = base_hp + hp_coef*L^2 ; armor = base_armor + armor_coef*L^2
+  damage_taken = incoming - armor/2, floored at 1  (src/core/combat_math.cpp:23)
+
+Reference attacker: a level-12 player SOLDIER, melee base 45
+  (20 base + strength/4, strength = 12 + 8*11 = 100)
+
+family   team  lvl   max_hp  armor    dmg   dmg/hit  hits2kill count
+THIEF    3     8        779    133     44       1.0        779  x1    <== THE BOSS (name field is EMPTY)
+THIEF    2     6        471     77     36       6.5         72  x1  
+THIEF    3     5        350     55     32      17.5         20  x12 
+MAGE     2     7        433     28     25      31.2         14  x1  
+CLERIC   2     6        444     24     36      33.0         13  x1  
+SOLDIER  2     4        328     41     40      24.5         13  x12 
+ARCHER   2     5        365     31     28      29.5         12  x6  
+THIEF    1     4        251     37     28      26.5          9  x12 
+THIEF    6     3        174     23     24      33.5          5  x8  
+THIEF    5     3        174     23     24      33.5          5  x9  
+THIEF    4     3        174     23     24      33.5          5  x9  
+THIEF    7     2        119     13     20      38.5          3  x7  
+
+Level-8 thief, hits to kill        :    779
+ALL 78 other livings, hits combined:    845
+One entity out of 79 = 48.0% of the whole level melee durability.
+
+He also out-regenerates chip damage: living::set_difficulty gives him
+max_heal_delay = REGEN/(4*L^2+1) = 4000/257 = 15 ticks per HP, vs 39
+ticks for the level-5 thieves beside him (measured: +6.5 HP / 100 ticks).

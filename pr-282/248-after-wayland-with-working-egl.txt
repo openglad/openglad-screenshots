@@ -1,0 +1,10 @@
+CONTROL (issue #248): software-mesa EGL present under Wayland -> no fallback needed.
+Run: nix develop -c nix shell nixpkgs#weston -c bash scratchpad/248/after-capture.sh wayland-egl
+Env: __EGL_VENDOR_LIBRARY_DIRS=<mesa>/share/glvnd/egl_vendor.d LIBGL_ALWAYS_SOFTWARE=1
+     GALLIUM_DRIVER=llvmpipe LIBGL_DRIVERS_PATH=<mesa>/lib/dri SDL_VIDEODRIVER=wayland
+     WAYLAND_DISPLAY=wl-x (weston 16, x11 backend + pixman, 1280x800 inside Xvfb 1400x900)
+Frame: t=30 s, main menu, git stamp 3802DF56 (branch fix/bug-sweep HEAD, fix included).
+
+grep -inE 'falling back|SDL_CreateRenderer failed' over the boot log: NO MATCHES.
+The renderer is created on the wayland driver itself, so the new fallback never arms:
+17:Creating screen 640x400

@@ -1,0 +1,36 @@
+CAPTION: issue #248 BEFORE (pre-fix binary stamped a76fccfc+ -- captured from a
+codex-branch checkout of build/ci-test/openglad; the null-renderer code path is
+identical to d25249f3, since the fallback did not exist on any tree before 6349df1d).
+openglad launched with SDL_VIDEODRIVER=wayland against a real Wayland compositor
+(weston 16, x11 backend + pixman renderer, nested in Xvfb). The window is created,
+but SDL_CreateRenderer(window, NULL) fails and openglad only logs the error and keeps
+running: no window ever appears (see before-wayland-no-window.png) and the process is
+still alive 30 s later. Same binary + same container under SDL_VIDEODRIVER=x11 reaches
+the main menu (before-x11-main-menu.png, stamp A76FCCFC+).
+
+--- openglad, SDL_VIDEODRIVER=wayland (log tail, cfg-noise filtered) ---
+Installed 1 class pack(s): 71 family descriptor(s)
+Loading settings
+Creating screen 640x400
+[ERROR] SDL_CreateRenderer failed: Couldn't find matching render driver
+Saving settings
+quit(0)
+
+--- openglad, SDL_VIDEODRIVER=x11, same container (log tail) ---
+Creating screen 640x400
+[WARN] Timed out waiting for the requested display state
+XIO:  fatal IO error 0 (Success) on X server ":99"
+
+--- SDL3 probe (scratchpad/248/drivers.c), SDL_VIDEODRIVER=wayland ---
+video drivers (6): wayland x11 kmsdrm offscreen dummy evdev
+current driver: wayland
+window ok
+WARNING: Couldn't create renderer opengl: Could not get EGL display
+WARNING: Couldn't create renderer opengles2: Could not get EGL display
+WARNING: Couldn't create renderer vulkan: Installed Vulkan doesn't implement the VK_KHR_surface extension
+WARNING: Couldn't create renderer gpu: No supported SDL_GPU backend found!
+SDL_CreateRenderer failed: Couldn't find matching render driver
+  ... and with SDL_RENDER_DRIVER=software forced:
+SDL_CreateRenderer failed: Window framebuffer support not available
+  ... same probe under SDL_VIDEODRIVER=x11 in the same container:
+renderer: software

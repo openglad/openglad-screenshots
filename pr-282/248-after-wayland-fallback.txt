@@ -1,0 +1,23 @@
+AFTER (issue #248, branch fix/bug-sweep @ 4034d27a, git stamp 4034D27A on the menu)
+Reporter's launch shape: WAYLAND_DISPLAY=wl-x set against a real Wayland
+compositor (weston 16, x11 backend + pixman, nested in Xvfb 1400x900), NO
+SDL_VIDEODRIVER pin -- SDL selects the wayland driver on its own.
+Command: bash scratchpad/248/after-capture.sh wayland
+
+--- build/ci-test/openglad boot log (verbatim) ---
+[ERROR] SDL_CreateRenderer failed on video driver 'wayland': Couldn't find matching render driver
+[ERROR]   render driver 'opengl': Could not get EGL display
+[ERROR]   render driver 'opengles2': Could not get EGL display
+[ERROR]   render driver 'vulkan': Installed Vulkan doesn't implement the VK_KHR_surface extension
+[ERROR]   render driver 'gpu': No supported SDL_GPU backend found!
+[ERROR]   render driver 'software': Window framebuffer support not available
+[WARN] No renderer on video driver 'wayland' (Couldn't find matching render driver); falling back to video driver 'x11'. Pin SDL_VIDEODRIVER to disable this fallback.
+--- end ---
+
+Every render driver names its own reason (the diagnosis a user can hand
+back without setting SDL_LOGGING). 'software' is the load-bearing line:
+SDL's Wayland backend installs no window framebuffer, so the software
+renderer -- the one that always rescues X11 -- is unreachable there.
+OpenGlad then reboots SDL video on x11 (XWayland) instead of running
+invisibly, and the game reaches the intro (t20) and main menu (t30).
+Process still alive at 30 s, now with a visible window.

@@ -1,0 +1,53 @@
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/westlands.glad -> /tmp/openglad_test_2550263/campaigns/westlands.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/gladiator.glad -> /tmp/openglad_test_2550263/campaigns/gladiator.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/tryxian.glad -> /tmp/openglad_test_2550263/campaigns/tryxian.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/concept.glad -> /tmp/openglad_test_2550263/campaigns/concept.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/imaginations.glad -> /tmp/openglad_test_2550263/campaigns/imaginations.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/longseason.glad -> /tmp/openglad_test_2550263/campaigns/longseason.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/tower.glad -> /tmp/openglad_test_2550263/campaigns/tower.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/modes.glad -> /tmp/openglad_test_2550263/campaigns/modes.glad
+Mounting default campaign...
+Mounting campaign package: gladiatorMounted default campaign
+Registered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+cfg setting not found: graphics/brightness
+cfg setting not found: graphics/fullscreen
+cfg setting not found: graphics/width
+cfg setting not found: graphics/height
+cfg setting not found: graphics/windowed_width
+cfg setting not found: graphics/windowed_height
+Creating screen 640x400
+cfg setting not found: graphics/zoom
+cfg setting not found: graphics/render
+cfg setting not found: graphics/smoothing
+cfg setting not found: effects/gore
+cfg setting not found: controls/player1_hud_radar
+cfg setting not found: controls/player1_hud_life
+cfg setting not found: controls/player1_hud_foes
+cfg setting not found: controls/player1_hud_score
+cfg setting not found: controls/player1_view_zoom
+cfg setting not found: controls/player1_hud_migrated
+cfg setting not found: sound/sound
+Note: Google Test filter = Issue12EditorWallCrash.floor_smoothers*
+[==========] Running 1 test from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 1 test from Issue12EditorWallCrash
+[ RUN      ] Issue12EditorWallCrash.floor_smoothers_follow_the_live_world_rng_across_a_level_load
+/home/yans/code/openglad/tests/integration/test_level_editor_issue12_wall_crash.cpp:529: Failure
+Value of: w.smoothers_in_sync()
+  Actual: false
+Expected: true
+a loaded floor smoother is still bound to the loader's throwaway world
+
+[  FAILED  ] Issue12EditorWallCrash.floor_smoothers_follow_the_live_world_rng_across_a_level_load (9 ms)
+[----------] 1 test from Issue12EditorWallCrash (9 ms total)
+
+[----------] Global test environment tear-down
+[==========] 1 test from 1 test suite ran. (9 ms total)
+[  PASSED  ] 0 tests.
+[  FAILED  ] 1 test, listed below:
+[  FAILED  ] Issue12EditorWallCrash.floor_smoothers_follow_the_live_world_rng_across_a_level_load
+
+ 1 FAILED TEST

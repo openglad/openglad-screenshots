@@ -1,0 +1,38 @@
+Issue #278 — BEFORE (unfixed tree d25249f3), joiner side.
+Off-tree probe: scratchpad/278/probe278_shot.cpp (host + joiner over a real
+direct WebSocket lobby, both in gameplay, then the host process-side transport
+is destroyed = "the plane took off").
+
+  [probe278] SHOT 1 (joiner-live)                 -> world tick 35, end=0
+  [probe278] host gone
+  [probe278] SHOT 2 (joiner-10s-after-drop)       -> world tick 35, end=0
+  [probe278] at +10s: joiner tick=35 end=0            (world has not advanced
+                                                       a single tick in 10 s;
+                                                       no message on screen)
+  Connection Lost, Lost connection to the server.     (fires at exactly
+                                                       CLIENT_CONNECTION_LOST_TIMEOUT_MS)
+  [probe278] session ended=1 at +30007 ms
+  [probe278] SHOT 3 (joiner-after-connection-lost)
+  [probe278] SHOT 4 (joiner-back-at-menu)             (after
+                                                       picker_reinitialize_lobby_after_game())
+  NEED A TEAM!, Please hire a / team before / starting the level
+  [probe278] go_menu -> 2 in 0 ms                     (2 == MENU_REDRAW: the
+                                                       "start a new game" press
+                                                       launches nothing)
+  [probe278] SHOT 5 (joiner-after-new-game)
+
+Frame deltas (ImageMagick AE, 320x200 canvas = 64000 px):
+  shot2 vs shot3 : 4 px    (frozen through the whole 30 s stall)
+  shot3 vs shot5 : 5 px    (still the same frozen mission frame after the
+                            "new game" press)
+Server side for comparison: GameServer evicts a silent peer after
+DISCONNECT_TIMEOUT_MS = 10 s, so the client sits frozen for 20 s AFTER the
+server has already dropped it.
+
+--- 2026-09-07 media amendment ---------------------------------------------
+SHOTS 1, 3 and 4 are no longer published. 1 and 3 were near-duplicates of
+SHOT 2 (the frame deltas above say 4-5 px), and SHOT 4 ("back at menu") was a
+gameplay frame rather than a picker render -- the probe's shoot() helper
+redrew the world before saving. The published BEFORE evidence for the
+"back at the menu" leg is this file: the 30 s stall, the inert QUIT, and the
+"NEED A TEAM!" line where the fixed tree shows NETWORKING / CONNECTION LOST.

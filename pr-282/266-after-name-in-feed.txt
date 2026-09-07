@@ -1,0 +1,29 @@
+ISSUE #266 -- the naming half, proved through the player-facing name channel.
+
+The text protocol's `census` command reports a "named" list: every living
+whose statistics carry BIT_NAMED (set by the loader only when the object
+record's 12-byte name field holds at least two characters). It is the same
+bit that drives the OUTLINE_NAMED highlight in the SDL client and the
+personalised taunt/kill text (walker::compute_outline; entity_display_name
+falls back to the family name when it is clear).
+
+BEFORE (unfixed tree, d25249f3) -- every census line of a gladiator scen17
+run reports an empty list; the level's toughest walker was anonymous:
+
+  $ grep -o '"named":\[[^]]*\]' <before run>.jsonl | sort | uniq -c
+       21 "named":[]
+
+AFTER -- the same command on the same seed:
+
+  $ grep -o '"named":\[[^]]*\]' <after run>.jsonl | head -1
+  "named":[{"name":"Saffron","team":3,"hp":471,"dead":false}]
+
+The regression test pins the same fact at the source
+(tests/unit/test_gladiator_levels.cpp, GladiatorCampaignTest.
+nuthram_guild_master_is_named): BIT_NAMED set, stats()->name == "Saffron".
+
+Caveat on the frame captures: OUTLINE_NAMED is viewer-relative
+(walker::compute_outline requires the viewer's team to differ from the
+drawn walker's), and the boss camera follows the boss himself, so a
+boss-focused demo frame can never show his own outline. The name is proved
+by the assertion and the census channel above, not by the PNGs.

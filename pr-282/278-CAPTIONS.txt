@@ -1,0 +1,40 @@
+Issue #278 -- "the host's plane took off; the joiner is stuck forever".
+All frames are the JOINER's display, captured by an off-tree gtest probe that
+drives a real direct WebSocket lobby to gameplay and then destroys the host:
+  BEFORE  <scratch>/278/capture.sh        (pre-fix binary)
+  AFTER   <scratch>/278/capture_after.sh  (probe278_after.cpp)
+  AFTER (popup) <scratch>/278/run_popup.sh (probe278_popup.cpp)
+320x200 frames, 4x nearest-neighbour.
+
+before-2-joiner-10s-after-drop.png / after-2-joiner-10s-after-drop.png
+    Ten seconds after the host vanishes. BEFORE: the world is frozen and the
+    display says nothing at all. AFTER: the same frozen world carries the
+    "CONNECTION LOST - RECONNECTING" banner and the "ESC: MENU" line under
+    it, so the player knows what happened, that the client is still trying,
+    and how to get out.
+
+after-4-joiner-connection-lost-popup.png
+    AFTER: the modal the picker raises when it gives up on the dead host and
+    swaps the networked lobby client for a local one -- NETWORKING /
+    CONNECTION LOST with its OK button, photographed live from inside the
+    dialog loop (UxShots presenter freeze) and then dismissed by button id.
+    The probe calls the revert seam directly rather than running the menu
+    loop, so the backdrop is whatever the canvas last held (a stale world
+    frame), not a picker render; in play the team-build screen is behind it. The run's log lines are the rest of the
+    claim: revert -> 1, networked=0 afterwards, so nothing re-dials the dead
+    host. There is no BEFORE counterpart -- pre-fix there was no revert and
+    no notice; before-timeline.txt records what the joiner got instead.
+
+before-5-joiner-after-new-game.png / after-5-joiner-after-new-game.png
+    Pressing "start a new game" afterwards. BEFORE: inert, the press does
+    nothing. AFTER: a local level launches.
+
+before-timeline.txt / after-timeline.txt
+    The probe's own timings and state transitions for each run.
+
+Dropped from the PR body on the 2026-09-07 media pass (regenerable with the
+capture scripts above): before-1/after-1 (joiner-live) and before-3/after-3
+were near-duplicates of the +10 s pair, and before-4/after-4
+("joiner-back-at-menu") were gameplay frames, not picker frames -- the probe's
+old shoot() helper called screen::redraw() before saving, which repainted the
+world over whatever the UI canvas held.

@@ -1,0 +1,34 @@
+ISSUE #266 BEFORE -- the level-8 Nuthram thief takes exactly 1 damage per hit.
+
+Reproduce (repo root, unfixed tree d25249f3):
+  ( for i in $(seq 1 60); do echo "tick 10"; echo state; done; echo quit ) \
+    | env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
+          OPENGLAD_CONFIG_DIR=<scratch>/cfg \
+      ./build/ci-test/openglad_text --campaign gladiator --level 17 \
+          --protocol --team 0,0,0,0 --team-level 12 --seed 42
+
+The boss is the only living in the level with max_hp 779 (level 8 thief,
+team 3, authored at world (1168,1152), name field EMPTY).
+Printing only the ticks where his hp changed:
+
+  tick   10 boss_hp=779
+  tick  190 boss_hp=778 delta=-1
+  tick  250 boss_hp=779 delta=+1     <- regenerated the hit back
+  tick  390 boss_hp=778 delta=-1
+  tick  400 boss_hp=777 delta=-1
+  tick  410 boss_hp=773 delta=-4
+  tick  430 boss_hp=770 delta=-3
+  tick  450 boss_hp=769 delta=-1
+  tick  460 boss_hp=768 delta=-1
+  tick  470 boss_hp=767 delta=-1
+  tick  490 boss_hp=766 delta=-1
+  tick  500 boss_hp=765 delta=-1
+  tick  510 boss_hp=709 delta=-56    <- a special (bomb/meteor), not melee
+  tick  520 boss_hp=708 delta=-1
+  tick  540 boss_hp=707 delta=-1
+  tick  550 boss_hp=706 delta=-1
+  tick  560 boss_hp=699 delta=-7
+
+-1 is the floor of compute_damage_reduction (src/core/combat_math.cpp:23):
+"always do at least 1 damage" when armor/2 >= incoming-1. His armor is
+5 + 2*8^2 = 133, so every attack whose base damage is <= 67 lands for 1.

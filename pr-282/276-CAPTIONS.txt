@@ -1,0 +1,29 @@
+Issue #276 -- "an arena starts and is instantly won".
+Recipe: <scratch>/276/capture.sh and run_captures.sh; the sweep tables are
+rendered from the stored JSON captures by <scratch>/276/summarize_sweep_v2.py
+(one script, one column set, both sides).
+
+before-modes-sweep-instant-win.txt / after-modes-sweep-instant-win.txt
+    All 40 shipped multiplayer arenas, 120 ticks each, before and after.
+    Columns mean the same thing on both sides:
+      ents  = LIVE entities in the tick-120 state dump (the walkers still
+              standing when the run stopped -- NOT the level's load-time
+              object count),
+      mode  = the mode plugin's own name from that dump; blank means no mode
+              ever initialized.
+    BEFORE: 23 of 40 end at tick 2 with mode.active false and a single live
+    team -- the mode refused init for want of a second team and classic rules
+    scored the level a WIN. AFTER: 0 of 40 end inside the window; every arena
+    runs with its mode active and at least two live teams.
+    (The two routes differ -- the before table is the --protocol client, the
+    after table drives the text PICKER, which is the only route that reaches
+    the new FILL: FAIR deal -- so the earlier 'title' column, which only the
+    --protocol ready line carried, is gone from both tables rather than
+    printed blank on one.)
+
+before-match-setup-teams1-fill-none.png / after-match-setup-teams1-fill-none.png
+before-lineup-page-all-fill-none.png / after-lineup-page-all-fill-none.png
+before-view-level-refusal.png / after-view-level-refusal.png
+before-arena-empty-scen500.png / after-arena-empty-scen500.png
+after-arena-scen500-frame30.png
+    Picker/arena frames from the same flows, before and after the fix.

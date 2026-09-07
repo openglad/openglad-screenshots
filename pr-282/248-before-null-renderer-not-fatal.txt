@@ -1,0 +1,23 @@
+CAPTION: issue #248 BEFORE, compositor-free repro of the same openglad code path.
+Forcing SDL_CreateRenderer to fail (bogus SDL_RENDER_DRIVER) under the dummy video
+driver reproduces exactly what Wayland-without-a-usable-GPU-renderer produces:
+openglad logs the failure, continues with renderer == nullptr, and never exits.
+
+cmd: SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
+     SDL_RENDER_DRIVER=openglad-intentionally-invalid \
+     OPENGLAD_CONFIG_DIR=<scratch> timeout 20 ./build/ci-test/openglad
+result: EXIT=124 (still running when the 20 s timeout killed it)
+
+Installed 1 class pack(s): 71 family descriptor(s)
+Loading settings
+Creating screen 640x400
+[ERROR] SDL_CreateRenderer failed: openglad-intentionally-invalid not available
+[ERROR] set_world_canvas_size(320x240) allocation failed: Parameter 'renderer' is invalid
+[WARN] Unable to apply world zoom 10; keeping 320x200 canvas and its current zoom/smoothing state.
+Saving settings
+[ERROR] set_world_canvas_size(320x240) allocation failed: Parameter 'renderer' is invalid
+[WARN] Unable to apply world zoom 10; keeping 320x200 canvas and its current zoom/smoothing state.
+[ERROR] set_world_canvas_size(320x240) allocation failed: Parameter 'renderer' is invalid
+[WARN] Unable to apply world zoom 10; keeping 320x200 canvas and its current zoom/smoothing state.
+[ERROR] set_world_canvas_size(320x240) allocation failed: Parameter 'renderer' is invalid
+[WARN] Unable to apply world zoom 10; keeping 320x200 canvas and its current zoom/smoothing state.

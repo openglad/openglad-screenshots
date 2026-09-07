@@ -1,0 +1,45 @@
+ISSUE #266 AFTER -- the Nuthram guild master takes real damage again.
+
+Reproduce (repo root, fixed tree; rebuild og_builtin_campaigns first so the
+composed builtin/gladiator.glad carries the edited scen17):
+  ( for i in $(seq 1 60); do echo "tick 10"; echo state; done; echo quit ) \
+    | env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
+          OPENGLAD_CONFIG_DIR=<scratch>/cfg \
+      ./build/ci-test/openglad_text --campaign gladiator --level 17 \
+          --protocol --team 0,0,0,0 --team-level 12 --seed 42
+
+Same seed, same crew, same commands as the BEFORE capture. The boss is now
+level 6: max_hp 471, armor 72. A level-12 player soldier's 45 base melee
+beats the 36-point reduction, so his hits land for ~9 instead of 1 (the
+lone -1 steps are the level-2/3 guild mooks, whose 20-24 base damage is
+still under the clamp -- that part is the classic curve working as designed).
+He is tracked by entity id (eid 78), not by max_hp.
+Printing only the ticks where his hp changed:
+
+  tick   10 boss_hp=471
+  tick  310 boss_hp=453 delta=-18
+  tick  320 boss_hp=452 delta=-1
+  tick  330 boss_hp=451 delta=-1
+  tick  340 boss_hp=450 delta=-1
+  tick  350 boss_hp=448 delta=-2
+  tick  360 boss_hp=447 delta=-1
+  tick  370 boss_hp=444 delta=-3
+  tick  380 boss_hp=442 delta=-2
+  tick  420 boss_hp=424 delta=-18
+  tick  430 boss_hp=359 delta=-65
+  tick  440 boss_hp=356 delta=-3
+  tick  450 boss_hp=352 delta=-4
+  tick  470 boss_hp=351 delta=-1
+  tick  480 boss_hp=347 delta=-4
+  tick  490 boss_hp=345 delta=-2
+  tick  500 boss_hp=332 delta=-13
+  tick  510 boss_hp=331 delta=-1
+  tick  560 boss_hp=330 delta=-1
+  tick  570 boss_hp=322 delta=-8
+  tick  580 boss_hp=321 delta=-1
+  tick  590 boss_hp=315 delta=-6
+
+He ends this 600-tick window at 315/471. Over the full 4000-tick run
+(after-boss-hp-track.txt) he bottoms out at 92/471 -- 80% of his health
+gone. In the BEFORE capture he never dropped below 651/779 and finished
+the level regenerated to 765/779.

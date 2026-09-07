@@ -1,0 +1,107 @@
+Issue #266 -- BEFORE media, captured on the unfixed tree d25249f3.
+Recipe: /tmp/claude-1000/-home-yans-code-openglad/b88e63c0-78e8-4440-8940-08d3a0c3385c/scratchpad/266/capture.sh
+
+before-nuthram-boss-spawn.png
+    gladiator scen17 at tick 0, openglad_demo camera pinned to the level's
+    highest-level walker (OPENGLAD_DEMO_CAPTURE_FOCUS=boss). The sprite dead
+    centre IS the level-8 thief; the row above it is six of the twelve
+    level-5 team-3 thieves. Nothing on screen tells them apart.
+
+before-nuthram-boss-closeup.png
+    7x crop of the same frame around the boss. No name outline
+    (OUTLINE_NAMED is gated on BIT_NAMED, and his 12-byte name field is all
+    zeros), no health bar, no colour difference from a level-2 mook.
+
+before-nuthram-boss-cloaked.png
+    Tick ~200. The boss (centre) is drawn as a bare team-colour silhouette:
+    he has CLOAK up. Kill feed reads the generic "THIEF KILLED".
+
+before-nuthram-defeat.png
+    Last rendered frame of the demo session, immediately before the log line
+    "Defeat!, YOUR MEN ARE CRUSHED!". The demo's four heroes were spawned at
+    level 8 (matching the strongest enemy) and were wiped in ~330 ticks.
+
+before-scen17-roster.txt      full parsed object list of campaigns/gladiator/scen/scen17.fss
+before-durability-table.txt   derived hp/armor/damage per living + the "48% of the level" arithmetic
+before-one-damage-per-hit.txt boss HP deltas: nearly every hit lands for exactly 1
+before-last-thief-standing.txt census progression; he is alive at 765/779 at tick 10000
+
+
+Issue #266 -- AFTER media, captured on the fixed tree (scen17 object record
+#77: level 8 -> 6, name "" -> "Saffron"; builtin/gladiator.glad recomposed by
+og_builtin_campaigns before every capture).
+Recipe: PREFIX=after bash <scratch>/266/capture.sh, plus <scratch>/266/after_sim.sh.
+
+after-nuthram-boss-spawn.png
+    Same command and seed as the before shot. BYTE-IDENTICAL to
+    before-nuthram-boss-spawn.png, and deliberately so: the demo's boss
+    camera now ranks a NAMED hostile above an unnamed higher-level one
+    (src/platform/sdl/demo.cpp), so it still frames Saffron even though the
+    level-7 mage now outlevels him. The sprite is unchanged -- the fix is in
+    the stats and the name field, not the art.
+
+after-nuthram-boss-closeup.png
+    7x crop of the same frame. Also byte-identical to the before crop, for
+    the same reason. OUTLINE_NAMED is VIEWER-RELATIVE
+    (walker::compute_outline requires the viewer's team to differ from the
+    drawn walker's) and the boss camera's viewer IS the boss, so no
+    boss-focused frame can ever show his own name outline. The name is proved
+    in pixels by after-saffron-named-outline*.png (a player-focus frame,
+    below), and in text by after-name-in-feed.txt and the regression test --
+    not by these two PNGs.
+
+after-nuthram-boss-cloaked.png
+    Tick ~200, same camera. Saffron (centre) still cloaks -- the nerf touched
+    his level, not his specials. The two "THIEF KILLED" lines are the
+    unnamed level-5 guild thieves he killed; those stay generic, which is the
+    point of naming only the boss.
+
+after-nuthram-defeat.png
+    Last rendered frame of the demo session. The demo party spawns at the
+    strongest enemy's level, which is now 7 rather than 8, so this run is not
+    tick-for-tick comparable with the before shot -- it is here to show the
+    level still plays.
+
+after-scen17-roster.txt        parsed object list; diff against the before file is ONE line (record #77)
+after-boss-hp-track.txt        4000-tick HP curve: 471 -> 92/471 by tick 700 (before: never under 651/779)
+after-one-damage-per-hit.txt   per-hit deltas: -18/-13/-8/-6 where the before run showed -1
+after-last-thief-standing.txt  census progression + the protocol's "named" channel reporting Saffron
+after-name-in-feed.txt         the naming half, proved through that named channel
+
+
+Issue #266 -- AFTER, the NAMING half in pixels (recaptured 2026-09-07).
+The four boss-camera PNGs above cannot show OUTLINE_NAMED: the highlight is
+viewer-relative and the boss camera's viewer IS the boss. These two frames
+come from a PLAYER-focus run of the same demo, same seed, where the camera's
+viewer is a hero on team 0:
+
+  nix develop -c env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
+    SDL_RENDER_DRIVER=software OPENGLAD_DEMO_GRID=1x1 OPENGLAD_DEMO_SEED=42 \
+    OPENGLAD_DEMO_CAMPAIGN=gladiator OPENGLAD_DEMO_SCENARIOS=17 \
+    OPENGLAD_DEMO_TEAM_SIZE=4 OPENGLAD_DEMO_CAPTURE_FOCUS=player \
+    OPENGLAD_DEMO_CAPTURE_START=0 OPENGLAD_DEMO_CAPTURE_EVERY=1 \
+    OPENGLAD_DEMO_CAPTURE_LIMIT=400 OPENGLAD_DEMO_MAX_FRAMES=1000 \
+    ./build/ci-test/openglad_demo
+
+after-saffron-named-outline.png
+    Rendered frame 158 (= sim tick 158) of that run, 3x nearest-neighbour.
+    Saffron walks through the hero's viewport wearing the OUTLINE_NAMED
+    highlight the loader sets from the new 12-byte name field; the level-5
+    guild thief a few tiles right of him carries none.
+
+after-saffron-named-outline-closeup.png
+    7x crop of the same frame around him (crop=128:80:47:58). The white halo
+    is palette index 7 = OUTLINE_NAMED (include/openglad/core/constants.h);
+    the unnamed thief at the bottom right of the crop is the contrast.
+
+How the frame was found, and why it is Saffron and not some other sprite:
+the demo writes 8-bit indexed BMPs, so the frames were scanned for palette
+index 7 directly (<scratch>/266/scan7.py). On the FIXED tree, frames 134-162
+each carry a 31-40 pixel index-7 cluster tracking one walker. On the UNFIXED
+level bytes (scen17.fss reverted to d25249f3, og_builtin_campaigns recomposed,
+same command) no frame in the whole 327-frame run carries a cluster larger
+than 8 pixels -- the specks that remain are static HUD pixels. Saffron is the
+only named unit in the level (after-scen17-roster.txt: exactly one record with
+a non-empty name), and walker::compute_outline draws OUTLINE_NAMED only for a
+BIT_NAMED walker on a team other than the viewer's, so the outlined walker in
+these frames can only be him.

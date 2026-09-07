@@ -1,0 +1,22 @@
+AFTER (issue #248, branch fix/bug-sweep @ 4034d27a) -- compositor-free repro
+of the identical null-renderer code path, and the shape CI actually runs:
+CTest 'openglad_sdl_renderer_failure' (scripts/test_sdl_renderer_failure.sh).
+SDL_VIDEODRIVER=dummy (pinned, so no fallback applies) +
+SDL_RENDER_DRIVER=openglad-intentionally-invalid, under 'timeout 45'.
+
+--- verbatim tail ---
+Creating screen 640x400
+[ERROR] SDL_CreateRenderer failed on video driver 'dummy': openglad-intentionally-invalid not available
+[ERROR]   render driver 'opengl': OpenGL support is either not configured in SDL or not available in current SDL video driver (dummy) or platform
+[ERROR]   render driver 'opengles2': OpenGL support is either not configured in SDL or not available in current SDL video driver (dummy) or platform
+[ERROR]   render driver 'vulkan': No dynamic Vulkan support in current SDL video driver (dummy)
+[ERROR]   render driver 'gpu': No supported SDL_GPU backend found!
+[ERROR]   render driver 'software': available
+[ERROR] Unrecoverable error: Fatal: SDL_CreateRenderer failed on video driver 'dummy': openglad-intentionally-invalid not available (SDL_LOGGING='*=verbose' prints SDL's own renderer log)
+--- end ---
+
+Script exit 0 (game exited 1 in ~2 s). BEFORE, on the same tree with the
+null-renderer block reverted to log-and-continue, the same script printed
+'openglad kept running with no renderer (invisible window, never exits)'
+after 'timeout' killed it at 45 s (status 124) -- see
+before-null-renderer-not-fatal.txt.

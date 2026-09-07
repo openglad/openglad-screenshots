@@ -1,0 +1,89 @@
+Issue #278 — AFTER (fix applied on top of 9208c5a0), joiner side.
+Off-tree probe: scratchpad/278/probe278_after.cpp (same fixture as the BEFORE
+probe: host + joiner over a real direct WebSocket lobby, both in gameplay, then
+the host process-side transport is destroyed = "the plane took off"; the only
+flow difference is that "backed out to menu" is now driven through the
+pause-menu QUIT seam at +10 s instead of waiting for the 30 s timer).
+
+  [probe278] SHOT 1 (joiner-live)                 -> world tick 59, end=0
+  [probe278] host gone
+  [probe278] SHOT 2 (joiner-10s-after-drop)       -> world tick 59, end=0
+  [probe278] at +10s: joiner tick=59 end=0            (mirror still frozen — no
+                                                       snapshots can arrive — but
+                                                       the frame now carries
+                                                       "CONNECTION LOST - RECONNECTING"
+                                                       and "ESC: MENU")
+  [probe278] QUIT (local_transport_shadow_abort_level) -> 0 at +10058 ms
+  Connection Lost, Lost connection to the server.     (fired BY the QUIT: the
+                                                       abort on a dead link IS
+                                                       the connection-lost seam)
+  [probe278] session ended=1 5 ms after QUIT          (BEFORE: 30 007 ms after
+                                                       the drop, QUIT inert)
+  [probe278] SHOT 3 (joiner-after-quit)               (banner retired before
+                                                       the popup)
+  picker_reinit_lobby_after_game elapsed_ms=0 networked=true session_lost=true
+  [probe278] after reinit: session_lost=1 networked=1 (no re-dial of the dead
+                                                       host from behind the
+                                                       black window)
+  NETWORKING, CONNECTION LOST
+  [probe278] revert -> 1; networked=0                 (the per-frame kicked-
+                                                       revert now covers a lost
+                                                       session: Base Camp is local)
+  [probe278] SHOT 4 (joiner-back-at-menu)             (seam-driven probe: still
+                                                       the last gameplay frame,
+                                                       not a real picker render —
+                                                       same caveat as before-4)
+  [probe278] SHOT 5 (joiner-after-new-game)           (5th frame of the LAUNCHED
+                                                       local level: world tick 5)
+  Defeat!, YOUR MEN ARE CRUSHED!                      (the 15-tick test limit
+                                                       ended the launched level)
+  [probe278] go_menu -> 2 in 1396 ms                  (2 == CreateTeamMenu ==
+                                                       MENU_REDRAW numerically;
+                                                       the launch is proven by
+                                                       SHOT 5 / the go_launched
+                                                       trace, not by the code)
+
+Frame deltas (ImageMagick AE, 320x200 canvas = 64000 px):
+  after-1 vs after-2 : 755 px  (the two banner lines + idle sprite animation)
+  after-2 vs after-3 : 381 px  (exactly the banner rows, retired on QUIT)
+  after-3 vs after-4 : 4 px    (seam-driven: no picker frame rendered)
+  after-4 vs after-5 : 33181 px (a different level — the launched local game)
+Before vs after: the 30 007 ms silent, inert freeze is now a 5 ms exit on
+QUIT with a visible banner from the first dropped poll, and GO launches a
+local mission instead of popping "NEED A TEAM!".
+
+--- Re-captured on the review fixup (3802df56, "Share the reconnect window
+between lobby and game, expire silent GO requests"), same probe, same five
+moments, box load ~65:
+  SHOT 1 joiner live: world tick 60, end=0
+  SHOT 2 +10 s: tick 60, banner CONNECTION LOST - RECONNECTING / ESC: MENU
+         (AE vs shot 1 at 4x: 9904 px = the two banner lines)
+  QUIT driven at +17147 ms (the probe's 10 s wait stretched by load);
+  session ended 5 ms after QUIT; SHOT 3 banner retired (AE vs shot 2: 6112 px)
+  reinit: session_lost=1 networked=1 (no re-dial); revert -> local (networked=0)
+  SHOT 4 back at menu: still the last gameplay frame (seam-driven probe,
+         same caveat as before)
+  SHOT 5 launched LOCAL level, 5th frame, world tick 5, go_menu -> 2 in 2833 ms
+         (AE vs shot 4: 595120 px = a different map)
+  The lobby-side policy change (reconnect window) is not visible in these
+  frames; it is pinned by og_test_picker_network's blip/latch tests.
+
+--- 2026-09-07 media amendment ---------------------------------------------
+SHOT 4 (joiner-back-at-menu) is no longer published: as the caveat above
+says, it was the last gameplay frame rather than a picker render, because the
+probe's shoot() helper called screen::redraw() before saving. It is replaced
+by after-4-joiner-connection-lost-popup.png, captured by
+<scratch>/278/probe278_popup.cpp -- the same flow, but with
+picker_testing_set_force_real_dialogs(true) around
+picker_revert_lobby_client_if_kicked() and an injector thread that freezes the
+presenter mid-dialog (the UxShots pattern) and then dismisses the modal by
+button id. That run's log:
+
+  [probe278] after reinit: session_lost=1 networked=1
+  [probe278] wrote .../after-4-joiner-connection-lost-popup.ppm (63994 nonblack pixels)
+    [interact] clicking 'ok' at game(160,140) win(160,140)
+  [probe278] popup: saw_ok=1 captured=1
+  [probe278] revert -> 1; networked=0 status0=(none)
+
+SHOTS 1 and 3 are also unpublished (near-duplicates of SHOT 2); the timings
+above still describe them.

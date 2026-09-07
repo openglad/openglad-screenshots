@@ -1,0 +1,35 @@
+AFTER (issue #248 review fixup 63956bd9) — teeth for the two review findings, proven by
+planting the exact break each finding describes and watching the new assertions go red.
+
+FINDING 1 (the pinned-driver contract was never exercised by production code).
+Break planted in src/platform/sdl/sai2x.cpp, exactly the mistake the review named —
+reading the legacy env name directly instead of the hint SDL3 folds it into:
+
+  -        const char* const pinned_driver = SDL_GetHint(SDL_HINT_VIDEO_DRIVER);
+  +        const char* const pinned_driver = getenv("SDL_VIDEO_DRIVER"); // PLANTED BREAK A
+
+  $ ./build/ci-test/og_test_sdl_renderer_fallback
+  [WARN] No renderer on video driver 'wayland' (injected renderer failure); falling back to
+         video driver 'dummy'. Pin SDL_VIDEODRIVER to disable this fallback.
+  renderer fallback assertion failed: a boot with no renderer must not yield a display
+  renderer fallback assertion failed: the pinned Wayland boot fails with SDL's own renderer reason
+  renderer fallback assertion failed: a Wayland failure names the XWayland escape hatch
+  renderer fallback assertion failed: the pinned boot leaves the live video driver alone
+  EXIT=1
+
+  The WARN line is the bug the block exists to catch: the process pins
+  SDL_VIDEODRIVER=dummy, and the broken pin read rebooted its video anyway.
+  Before this fixup the same break left every test green.
+
+FINDING 2 (the XWayland advice was printed on every platform).
+Break planted in the same file — the sentence made unconditional again:
+
+  -            if (current_driver == og::platform::kRendererFallbackSourceVideoDriver)
+  +            if (true)
+
+  $ ./build/ci-test/og_test_sdl_renderer_fallback
+  renderer fallback assertion failed: a non-Wayland failure never advertises the XWayland escape hatch
+  EXIT=1
+
+Both breaks reverted; og_test_sdl_renderer_fallback exits 0 on the committed tree, and the
+positive leg (block 4, live driver 'wayland') requires the sentence to be there.

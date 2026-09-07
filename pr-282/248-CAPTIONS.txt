@@ -1,0 +1,64 @@
+Issue #248 -- "openglad won't boot under Wayland".
+Every frame is an `import -window root` grab of a 1400x900 Xvfb root; the
+Wayland shots run openglad inside a nested weston 16 (x11 backend, pixman
+renderer, 1280x800 desktop). Capture scripts:
+  BEFORE  <scratch>/248/capture.sh [wayland|wayland-egl|x11]
+  AFTER   <scratch>/248/after-capture.sh [wayland|wayland-pinned|wayland-egl|x11]
+The bottom-left blue stamp on the main menu is the build's git hash, so every
+frame names the commit it came from.
+
+--- the bug ---------------------------------------------------------------
+before-wayland-no-window.png
+    SDL_VIDEODRIVER=wayland, pre-fix binary (stamp A76FCCFC+; the
+    log-and-continue code path is identical on d25249f3 -- the fallback did
+    not exist on any tree before 6349df1d). t=30 s: SDL_CreateRenderer
+    failed, openglad kept running with renderer == nullptr, and no window
+    ever appeared. Bare weston desktop, nothing else on screen.
+
+before-wayland-renderer-failure.txt
+    The same run's boot log plus the standalone SDL3 probe: every render
+    driver's own refusal, including the load-bearing one -- SDL's Wayland
+    backend installs no window framebuffer, so even the software renderer
+    is unreachable there.
+
+before-null-renderer-not-fatal.txt
+    Compositor-free repro of the same code path (bogus SDL_RENDER_DRIVER
+    under the dummy video driver): exit 124, still running when the timeout
+    killed it.
+
+--- the fix ---------------------------------------------------------------
+after-wayland-intro-running.png / after-wayland-main-menu.png
+    Reporter's launch shape (WAYLAND_DISPLAY set, no SDL_VIDEODRIVER pin) on
+    the fixed tree, stamp 4034D27A: openglad detects the rendererless Wayland
+    boot, reboots SDL video on x11 (XWayland on a real desktop), and reaches
+    the intro (t=20 s) and the main menu (t=30 s) in a visible window.
+
+after-wayland-fallback.txt
+    That run's verbatim boot log: one [ERROR] line per render driver naming
+    its own reason, then the [WARN] fallback line.
+
+after-null-renderer-fatal.txt
+    The pinned case: with no fallback allowed, the boot now fails loudly and
+    exits 1 instead of running invisibly. This is the shape CI runs
+    (openglad_sdl_renderer_failure).
+
+after-review-fix-teeth.txt
+    Red-first evidence for the two review findings of 63956bd9.
+
+--- controls (unchanged behaviour, both trees) ----------------------------
+before-x11-main-menu.png
+    Same container, SDL_VIDEODRIVER=x11, pre-fix binary (stamp A76FCCFC+):
+    main menu at t=30 s.
+
+after-x11-main-menu.png
+    Same command on branch HEAD (stamp 3802DF56): main menu at t=40 s. The
+    later t is machine load, not behaviour -- the run was extended to 60 s
+    and t=40/45/50/55/60 are byte-identical settled menu frames.
+
+after-wayland-with-working-egl.png + after-wayland-with-working-egl.txt
+    Control with a software-mesa EGL available under Wayland (llvmpipe):
+    SDL creates its renderer on the wayland driver itself, the new fallback
+    never arms (no "falling back to video driver" line anywhere in the log),
+    and the menu is up at t=30 s, stamp 3802DF56. There is deliberately no
+    BEFORE counterpart: this control shows only that the fix leaves a
+    working-EGL Wayland boot alone, which a single fixed-tree frame proves.
