@@ -27,49 +27,80 @@ before-one-damage-per-hit.txt boss HP deltas: nearly every hit lands for exactly
 before-last-thief-standing.txt census progression; he is alive at 765/779 at tick 10000
 
 
-Issue #266 -- AFTER media, captured on the fixed tree (scen17 object record
-#77: level 8 -> 6, name "" -> "Saffron"; builtin/gladiator.glad recomposed by
-og_builtin_campaigns before every capture).
-Recipe: PREFIX=after bash <scratch>/266/capture.sh, plus <scratch>/266/after_sim.sh.
+
+Issue #266 -- AFTER media, RECAPTURED 2026-09-08 on ccad0a9c. The first
+after-set was shot with the guild master nerfed to level 6; three later
+commits made that nerf unnecessary and undid it, so every after file below
+was regenerated:
+  7d33bf3f  Restore the 2002 armor roll's expectation in damage reduction
+  21f2606a  Round a hit to the nearest point instead of truncating it
+  5561272c  Return the Nuthram guild master to his authored level 8
+The shipped state of scen17 object record #77 is therefore: level 8 (as
+authored in 2002, unchanged), name "" -> "Saffron". The fix for #266 is the
+armor math plus the name, not a level nerf.
+Recipe: <scratch>/266/after8_sim.sh and <scratch>/266/after8_demo.sh
+(the same commands as <scratch>/266/capture.sh with PREFIX=after).
 
 after-nuthram-boss-spawn.png
-    Same command and seed as the before shot. BYTE-IDENTICAL to
-    before-nuthram-boss-spawn.png, and deliberately so: the demo's boss
-    camera now ranks a NAMED hostile above an unnamed higher-level one
-    (src/platform/sdl/demo.cpp), so it still frames Saffron even though the
-    level-7 mage now outlevels him. The sprite is unchanged -- the fix is in
-    the stats and the name field, not the art.
+    gladiator scen17 at tick 0, openglad_demo camera pinned to the level's
+    boss (OPENGLAD_DEMO_CAPTURE_FOCUS=boss, which ranks a NAMED hostile above
+    an unnamed one and only then by level). The sprite dead centre is
+    Saffron, the level-8 team-3 thief at world (1168,1152); the row above him
+    is six of the twelve level-5 team-3 thieves. Still BYTE-IDENTICAL to
+    before-nuthram-boss-spawn.png: he is back at his authored level 8 and the
+    tick-0 frame never depended on the damage math. The fix is in the armor
+    roll and the name field, not in the art or the level layout.
 
 after-nuthram-boss-closeup.png
-    7x crop of the same frame. Also byte-identical to the before crop, for
-    the same reason. OUTLINE_NAMED is VIEWER-RELATIVE
+    7x crop of the same frame around him (crop=128:80:96:60). Also
+    byte-identical to the before crop. NOTE: this frame does NOT and CANNOT
+    show the name outline -- OUTLINE_NAMED is VIEWER-RELATIVE
     (walker::compute_outline requires the viewer's team to differ from the
-    drawn walker's) and the boss camera's viewer IS the boss, so no
-    boss-focused frame can ever show his own name outline. The name is proved
-    in pixels by after-saffron-named-outline*.png (a player-focus frame,
-    below), and in text by after-name-in-feed.txt and the regression test --
-    not by these two PNGs.
+    drawn walker's) and the boss camera's viewer IS the boss. The named
+    outline is shown in pixels by after-saffron-named-outline*.png below, and
+    in text by after-name-in-feed.txt and the regression test.
 
 after-nuthram-boss-cloaked.png
-    Tick ~200, same camera. Saffron (centre) still cloaks -- the nerf touched
-    his level, not his specials. The two "THIEF KILLED" lines are the
-    unnamed level-5 guild thieves he killed; those stay generic, which is the
-    point of naming only the boss.
+    Frame 20 of the boss-camera run = sim tick ~200. Saffron (centre) is
+    drawn as a bare team-colour silhouette: he has CLOAK up, which the level
+    restore did not touch. The kill feed above him reads the generic "THIEF
+    KILLED" -- one of the unnamed level-5 guild thieves, which stay generic;
+    naming only the boss is the point.
 
 after-nuthram-defeat.png
-    Last rendered frame of the demo session. The demo party spawns at the
-    strongest enemy's level, which is now 7 rather than 8, so this run is not
-    tick-for-tick comparable with the before shot -- it is here to show the
-    level still plays.
+    Last rendered frame of the demo session (frame 42 = sim tick ~420),
+    immediately after the log line "Defeat!, YOUR MEN ARE CRUSHED!". The demo
+    party spawns at the strongest enemy's level, 8 again, so this run is
+    directly comparable with the before shot; it differs from it in pixels
+    because the restored armor roll changes every exchange from tick 434 on.
+    Centre is Saffron, still up, among the surviving team-3 guild thieves.
 
-after-scen17-roster.txt        parsed object list; diff against the before file is ONE line (record #77)
-after-boss-hp-track.txt        4000-tick HP curve: 471 -> 92/471 by tick 700 (before: never under 651/779)
-after-one-damage-per-hit.txt   per-hit deltas: -18/-13/-8/-6 where the before run showed -1
-after-last-thief-standing.txt  census progression + the protocol's "named" channel reporting Saffron
-after-name-in-feed.txt         the naming half, proved through that named channel
+after-scen17-roster.txt        parsed object list of campaigns/gladiator/scen/scen17.fss;
+                               diff against before-scen17-roster.txt is ONE
+                               field: record #77's name, '' -> 'Saffron'. The
+                               level byte reads 8 in both.
+after-boss-hp-track.txt        4000-tick HP curve at 100-tick resolution:
+                               779/779 held to tick 400, 571 by 700, 9/779 at
+                               1000, DEAD from 1100 on. BEFORE: never under
+                               651/779, ended regenerated at 765/779.
+after-one-damage-per-hit.txt   per-hit deltas at ONE-tick resolution, so no
+                               row bundles two hits: -6/-7/-8/-9 for the
+                               level-12 soldiers' 45-base melee (armor 133
+                               predicts 6.7..8.4 through, rounded = 7 +/- 1),
+                               -2 for the level-2/3 guild mooks (20-24 base,
+                               predicts 2), -30/-34/-40 for specials. Nothing
+                               lands for 1; the before run landed -1 over and
+                               over.
+after-last-thief-standing.txt  census progression + the protocol's "named"
+                               channel. The before finding no longer holds:
+                               Saffron is dead by tick 1500 instead of being
+                               the last thief alive at 10000.
+after-name-in-feed.txt         the naming half, through that named channel:
+                               "named":[{"name":"Saffron","team":3,"hp":779,
+                               "dead":false}] -- 779 = his level-8 max_hp.
 
-
-Issue #266 -- AFTER, the NAMING half in pixels (recaptured 2026-09-07).
+Issue #266 -- AFTER, the NAMING half in pixels (recaptured 2026-09-08 on
+ccad0a9c; the level-6 versions of these two frames are superseded).
 The four boss-camera PNGs above cannot show OUTLINE_NAMED: the highlight is
 viewer-relative and the boss camera's viewer IS the boss. These two frames
 come from a PLAYER-focus run of the same demo, same seed, where the camera's
@@ -85,23 +116,24 @@ viewer is a hero on team 0:
 
 after-saffron-named-outline.png
     Rendered frame 158 (= sim tick 158) of that run, 3x nearest-neighbour.
-    Saffron walks through the hero's viewport wearing the OUTLINE_NAMED
-    highlight the loader sets from the new 12-byte name field; the level-5
-    guild thief a few tiles right of him carries none.
+    Saffron -- the yellow team-3 thief left of centre -- walks through the
+    hero's viewport wearing the OUTLINE_NAMED highlight the loader sets from
+    the new 12-byte name field. The hero at the centre of the frame (the
+    camera's own walker, team 0) carries none.
 
 after-saffron-named-outline-closeup.png
     7x crop of the same frame around him (crop=128:80:47:58). The white halo
-    is palette index 7 = OUTLINE_NAMED (include/openglad/core/constants.h);
-    the unnamed thief at the bottom right of the crop is the contrast.
+    around the thief on the left is palette index 7 = OUTLINE_NAMED
+    (include/openglad/core/constants.h); the un-haloed walker on the right is
+    the viewer's own hero.
 
 How the frame was found, and why it is Saffron and not some other sprite:
 the demo writes 8-bit indexed BMPs, so the frames were scanned for palette
-index 7 directly (<scratch>/266/scan7.py). On the FIXED tree, frames 134-162
-each carry a 31-40 pixel index-7 cluster tracking one walker. On the UNFIXED
-level bytes (scen17.fss reverted to d25249f3, og_builtin_campaigns recomposed,
-same command) no frame in the whole 327-frame run carries a cluster larger
-than 8 pixels -- the specks that remain are static HUD pixels. Saffron is the
-only named unit in the level (after-scen17-roster.txt: exactly one record with
-a non-empty name), and walker::compute_outline draws OUTLINE_NAMED only for a
-BIT_NAMED walker on a team other than the viewer's, so the outlined walker in
-these frames can only be him.
+index 7 directly (<scratch>/266/scan7.py). On this tree, frames 134-170 each
+carry a 31-40 pixel index-7 cluster tracking one walker across the viewport;
+every other frame of the 400-frame run has 6 index-7 pixels or fewer (static
+HUD specks). Saffron is the only named unit in the level
+(after-scen17-roster.txt: exactly one record with a non-empty name), and
+walker::compute_outline draws OUTLINE_NAMED only for a BIT_NAMED walker on a
+team other than the viewer's, so the outlined walker in these frames can only
+be him.

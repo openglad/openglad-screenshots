@@ -1,4 +1,6 @@
 ISSUE #266 -- the naming half, proved through the player-facing name channel.
+(Recaptured on ccad0a9c; the name is unchanged from the first pass, only the
+level went back to 8.)
 
 The text protocol's `census` command reports a "named" list: every living
 whose statistics carry BIT_NAMED (set by the loader only when the object
@@ -13,17 +15,27 @@ run reports an empty list; the level's toughest walker was anonymous:
   $ grep -o '"named":\[[^]]*\]' <before run>.jsonl | sort | uniq -c
        21 "named":[]
 
-AFTER -- the same command on the same seed:
+AFTER -- the same command on the same seed, on ccad0a9c:
 
-  $ grep -o '"named":\[[^]]*\]' <after run>.jsonl | head -1
-  "named":[{"name":"Saffron","team":3,"hp":471,"dead":false}]
+  $ grep -o '"named":\[[^]]*\]' <after run>.jsonl | sort | uniq -c
+       18 "named":[{"name":"Saffron","team":3,"hp":0,"dead":true}]
+        1 "named":[{"name":"Saffron","team":3,"hp":759,"dead":false}]
+        1 "named":[{"name":"Saffron","team":3,"hp":779,"dead":false}]
+        1 "named":[{"name":"Saffron","team":3,"hp":9,"dead":false}]
+
+  (first line of the run)
+  "named":[{"name":"Saffron","team":3,"hp":779,"dead":false}]
+
+779 is his level-8 max_hp -- the 5561272c restore. The 18 "dead":true lines
+are the second half of the same run: the level-12 crew now kills him.
 
 The regression test pins the same fact at the source
 (tests/unit/test_gladiator_levels.cpp, GladiatorCampaignTest.
 nuthram_guild_master_is_named): BIT_NAMED set, stats()->name == "Saffron".
 
 Caveat on the frame captures: OUTLINE_NAMED is viewer-relative
-(walker::compute_outline requires the viewer's team to differ from the
-drawn walker's), and the boss camera follows the boss himself, so a
-boss-focused demo frame can never show his own outline. The name is proved
-by the assertion and the census channel above, not by the PNGs.
+(walker::compute_outline requires the viewer's team to differ from the drawn
+walker's), and the boss camera follows the boss himself, so a boss-focused
+demo frame can never show his own outline. The outline is proved in pixels by
+after-saffron-named-outline*.png -- frames from a PLAYER-focus run of the same
+demo -- and in text by the census channel above.

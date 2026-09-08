@@ -1,45 +1,68 @@
-ISSUE #266 AFTER -- the Nuthram guild master takes real damage again.
+ISSUE #266 AFTER (recaptured on ccad0a9c) -- the Nuthram guild master keeps
+his authored LEVEL 8, and a level-12 soldier's blow now lands for ~7 instead
+of exactly 1.
 
-Reproduce (repo root, fixed tree; rebuild og_builtin_campaigns first so the
-composed builtin/gladiator.glad carries the edited scen17):
-  ( for i in $(seq 1 60); do echo "tick 10"; echo state; done; echo quit ) \
-    | env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
-          OPENGLAD_CONFIG_DIR=<scratch>/cfg \
-      ./build/ci-test/openglad_text --campaign gladiator --level 17 \
-          --protocol --team 0,0,0,0 --team-level 12 --seed 42
+Two commits after the first #266 pass changed what "fixed" means here:
+  7d33bf3f  Restore the 2002 armor roll's expectation in damage reduction
+  21f2606a  Round a hit to the nearest point instead of truncating it
+  5561272c  Return the Nuthram guild master to his authored level 8
+The level byte is back to 8 (max_hp 779, armor 5 + 2*8^2 = 133); the boss is
+no longer a one-point sponge because compute_damage_reduction now returns the
+2002 roll's expectation, (k*d - k(k-1)/2)/armor with k = min(armor, ceil(d)),
+instead of the 2013 "armor/2, always at least 1 damage" clamp.
 
-Same seed, same crew, same commands as the BEFORE capture. The boss is now
-level 6: max_hp 471, armor 72. A level-12 player soldier's 45 base melee
-beats the 36-point reduction, so his hits land for ~9 instead of 1 (the
-lone -1 steps are the level-2/3 guild mooks, whose 20-24 base damage is
-still under the clamp -- that part is the classic curve working as designed).
-He is tracked by entity id (eid 78), not by max_hp.
-Printing only the ticks where his hp changed:
+Predicted, for a level-12 player SOLDIER (melee base 45, jittered by
+compute_base_damage to 41.6..46.6):
+  damage through armor 133 = 6.7 .. 8.4  ->  7 or 8 hit points
+The level-2/3 guild mooks (base 20-24) get 1.6..2.2 through -> 2 points, so
+the classic "armour matters" curve still holds at the bottom.
 
-  tick   10 boss_hp=471
-  tick  310 boss_hp=453 delta=-18
-  tick  320 boss_hp=452 delta=-1
-  tick  330 boss_hp=451 delta=-1
-  tick  340 boss_hp=450 delta=-1
-  tick  350 boss_hp=448 delta=-2
-  tick  360 boss_hp=447 delta=-1
-  tick  370 boss_hp=444 delta=-3
-  tick  380 boss_hp=442 delta=-2
-  tick  420 boss_hp=424 delta=-18
-  tick  430 boss_hp=359 delta=-65
-  tick  440 boss_hp=356 delta=-3
-  tick  450 boss_hp=352 delta=-4
-  tick  470 boss_hp=351 delta=-1
-  tick  480 boss_hp=347 delta=-4
-  tick  490 boss_hp=345 delta=-2
-  tick  500 boss_hp=332 delta=-13
-  tick  510 boss_hp=331 delta=-1
-  tick  560 boss_hp=330 delta=-1
-  tick  570 boss_hp=322 delta=-8
-  tick  580 boss_hp=321 delta=-1
-  tick  590 boss_hp=315 delta=-6
+Reproduce (repo root, ccad0a9c; one tick per sample so no two hits share a
+row -- 400-tick warm-up, then 300 single ticks):
+  ( echo "tick 400"; for i in $(seq 1 300); do echo "tick 1"; echo state; done
+    echo quit ) | env SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy \
+      OPENGLAD_CONFIG_DIR=<scratch>/cfg8 ./build/ci-test/openglad_text \
+        --campaign gladiator --level 17 --protocol --team 0,0,0,0 \
+        --team-level 12 --seed 42
 
-He ends this 600-tick window at 315/471. Over the full 4000-tick run
-(after-boss-hp-track.txt) he bottoms out at 92/471 -- 80% of his health
-gone. In the BEFORE capture he never dropped below 651/779 and finished
-the level regenerated to 765/779.
+Same seed and crew as the BEFORE capture. The boss is tracked by entity id
+(eid 78). Printing only the ticks where his hp changed:
+
+  tick  401 boss_hp=779
+  tick  434 boss_hp=772 delta=-7
+  tick  448 boss_hp=766 delta=-6
+  tick  465 boss_hp=759 delta=-7
+  tick  506 boss_hp=750 delta=-9
+  tick  510 boss_hp=743 delta=-7
+  tick  513 boss_hp=736 delta=-7
+  tick  521 boss_hp=734 delta=-2
+  tick  538 boss_hp=732 delta=-2
+  tick  539 boss_hp=730 delta=-2
+  tick  542 boss_hp=724 delta=-6
+  tick  549 boss_hp=718 delta=-6
+  tick  552 boss_hp=716 delta=-2
+  tick  578 boss_hp=710 delta=-6
+  tick  582 boss_hp=703 delta=-7
+  tick  583 boss_hp=695 delta=-8
+  tick  595 boss_hp=688 delta=-7
+  tick  621 boss_hp=682 delta=-6
+  tick  636 boss_hp=675 delta=-7
+  tick  640 boss_hp=635 delta=-40
+  tick  664 boss_hp=605 delta=-30
+  tick  672 boss_hp=571 delta=-34
+
+Measured, single hits, no aggregation:
+  -6, -7, -8, -9   the level-12 soldiers' melee (predicted 7 +/- 1)
+  -2               the low-level guild thieves (predicted 2)
+  -30, -34, -40    specials, not melee
+Nothing lands for 1. In the BEFORE capture (level 8, old clamp) the same
+attackers landed -1 over and over and he regenerated it back.
+
+The coarser 60 x 10-tick run agrees on the same seed (deltas bundle when two
+hits share a 10-tick window):
+  tick 440 -7 | 450 -6 | 470 -7 | 510 -16 | 520 -7 | 530 -2 | 540 -4
+  tick 550 -12 | 560 -2 | 580 -6 | 590 -15 | 600 -7    (688/779 at tick 600)
+
+Over the full 4000-tick run he is killed outright between ticks 1000 and 1100
+(after-boss-hp-track.txt: 9/779 at tick 1000, DEAD at 1100). BEFORE he never
+dropped below 651/779 and finished regenerated at 765/779.
