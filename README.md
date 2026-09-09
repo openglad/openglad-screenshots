@@ -7,6 +7,7 @@ This repo exists so the main repo's history stays free of binary media.
 ## Layout
 
 - `pr-<number>/` — media for one main-repo PR (preferred for new work)
+- `readme/` — images embedded by the main repo's README.md, pinned by SHA
 - `<feature>/` — legacy per-feature directories migrated from the main
   repo's old `docs/media/` (`company-basecamp/`, `lua-classpacks/`,
   `team-selection/`)
