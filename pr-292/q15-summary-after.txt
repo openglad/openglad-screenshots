@@ -1,0 +1,1 @@
+q15 (after): q15 spectator: switch_frame=30 target_before=62 target_after=63 frames_on_new_target=90/90 hero_acted=1 following=1 frames=121
