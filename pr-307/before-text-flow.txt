@@ -1,0 +1,446 @@
+================================================================================
+BEFORE — Multiplayer Arenas ("modes") host setup flow, TEXT CLIENT transcript
+================================================================================
+Build stamp : OPENGLAD_VERSION_STRING "2.1076", OPENGLAD_GIT_HASH "aaeab2d7"
+              (build/ci-test/og_git_hash.h; NO '+' suffix => captured from a
+              clean master tree, aaeab2d7fe4a02ca244b48855b6d8d2079fd12fb)
+Binary      : /home/yans/code/openglad/build/ci-test/openglad_text
+Captured    : 2026-09-19
+
+Exact command (run from the repo root, inside `nix develop`):
+
+  cd /home/yans/code/openglad
+  TH=$(mktemp -d)
+  HOME="$TH" OPENGLAD_CONFIG_DIR="$TH/cfg" timeout 90 \
+      ./build/ci-test/openglad_text < <stdin-below> > before-text-flow.raw 2>&1
+  rm -rf "$TH"
+
+stdin (one menu ordinal per line; blank line = "accept the generated name"):
+
+   1     Main menu        -> Begin New Game
+   <blank>                -> accept the generated company name
+   5     Campaign Select  -> 5. Multiplayer Game Modes
+   7     Team Build       -> 7. Camp           [DEPTH 1: the Gamesmaster's table]
+   1     Camp             -> 1. GAME: ...      [DEPTH 2: SEVEN GAMES, the Book index]
+   5     SEVEN GAMES      -> 5. SOCCER         [DEPTH 3: the SOCCER field page]
+   1     SOCCER           -> 1. THE PITCH      (this is the only click that sets the level)
+   0     SOCCER           -> back              [DEPTH 2]
+   0     SEVEN GAMES      -> back              [DEPTH 1]
+   4     Camp             -> 4. MATCH SETUP    [DEPTH 2]
+   1     MATCH SETUP      -> TEAMS: 1 -> 2  (and the deal writes FILL: FAIR)
+   2     MATCH SETUP      -> FILL: FAIR -> STRONG
+   3     MATCH SETUP      -> TARGET SCORE: MAP -> 1
+   4     MATCH SETUP      -> TIME LIMIT: MAP -> 5M
+   0     MATCH SETUP      -> back              [DEPTH 1]
+   0     Camp             -> back              [Team Build]
+  10     Team Build       -> 10. Scenario      [a SECOND, unrelated settings tree]
+   7     Scenario         -> 7. Back
+  12     Team Build       -> 12. Lineup        [a THIRD place the same FILL lives]
+  12     Lineup           -> 12. Back
+  11     Team Build       -> 11. Difficulty    [a FOURTH settings screen]
+   7     Difficulty       -> 7. Back
+   9     Team Build       -> 9. Networking     (refused in the headless text client)
+   7     Team Build       -> 7. Camp           (shows the digest the whole walk produced)
+   0     Camp             -> back
+   8     Team Build       -> 8. Back
+   6     Main menu        -> 6. Quit
+
+MENU DEPTH THE HOST CROSSES (the evidence issue #304 asks for):
+  Main menu
+   -> Team Build (12 rows)
+       -> Camp / the Gamesmaster's table (4 rows + BOOK tally)      depth 1
+           -> SEVEN GAMES, the Book index (7 rows)                  depth 2
+               -> SOCCER field page (4 arena rows)                  depth 3
+           -> MATCH SETUP (4 knob rows)                             depth 2
+       -> Scenario (7 rows)                                         depth 1
+       -> Lineup (12 rows — FILL again, per team)                   depth 1
+       -> Difficulty (7 rows)                                       depth 1
+       -> Networking                                                depth 1
+  = 5 sibling settings trees hanging off Team Build, 3 levels deep on the
+    Book branch, and FILL is reachable from two of them.
+
+================================================================================
+RAW TRANSCRIPT (verbatim stdout+stderr; the repeated
+"[ERROR] Cannot open level file for reading: scen1.fss" lines are the modes
+campaign having no scen1 until the FIELD page sets the level — they are the
+real output of master, not an artifact of the capture)
+================================================================================
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/westlands.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/westlands.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/gladiator.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/gladiator.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/tryxian.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/tryxian.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/imaginations.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/imaginations.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/longseason.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/longseason.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/tower.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/tower.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/modes.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/modes.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin-dev/concept.glad -> /tmp/tmp.PUxKqYW8DP/cfg/campaigns/concept.glad
+Mounting campaign package: gladiatorRegistered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+io_init(headless): done
+Loading settings
+og_open_read: trying PhysFS: cfg/openglad.yaml
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Level Editor
+   4. Game Settings
+   5. Help
+   6. Quit
+   7. Load Company
+   8. Cloud Saves
+Choice: 
+=== Found Your Company ===
+Name: IRON ANVIL CREW
+Enter a name, blank to accept, or 'reroll' for another suggestion: 
+--- Campaign Select ---
+  1. Gladiator
+  2. The Tryxian Chronicles
+  3. War of the Westlands
+  4. The Long Season
+  5. Multiplayer Game Modes
+  6. The Endless Tower
+  7. Imaginations
+  8. Concept Playground
+Select campaign [1-8] (blank keeps current): Registered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+Mounting campaign package: modesRegistered 10 class pack script(s)
+Registered 37 class pack lib module(s)
+Registered 76 class pack family chunk(s)
+Installed 2 class pack(s): 77 family descriptor(s)
+[WARN] load_map_data: not supported in headless mode
+[WARN] load_decor_data: not supported in headless mode
+Warning: create_level_render not supported in headless mode
+[ERROR] Cannot open level file for reading: scen1.fss
+
+Team: Ajax (SOLDIER)
+Gold: 5000
+[New game: build your team before GO!]
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Camp ---
+BOOK 0/40
+
+   1. GAME: TEAM DEATHMATCH - 0/6 stamped  >
+   2. FIELD: THE CIRCLE - 4 teams, to 20  >
+   3. RANDOM SCENARIO - any game, any field
+   4. MATCH SETUP - 1-way, none, map  >
+
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+Camp # [1-4] (0 = back): 
+--- SEVEN GAMES ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Every game keeps its own page.
+Stamped: 0 of 40.
+
+   1. TEAM DEATHMATCH - 0/6 stamped  >
+   2. CAPTURE THE FLAG - 0/10 stamped  >
+   3. ONSLAUGHT - 0/4 stamped  >
+   4. MUTANT - 0/4 stamped  >
+   5. SOCCER - 0/4 stamped  >
+   6. BASKETBALL - 0/6 stamped  >
+   7. FREE FOR ALL - 0/6 stamped  >
+Camp # [1-7] (0 = back): 
+--- SOCCER ---
+COMPANY  DEP 1/1  GOLD 5000
+
+No hands. Blades are fine.
+The book calls: THE PITCH.
+
+   1. THE PITCH - 2 sides, 3 goals
+   2. THE MUDBOWL - 2 sides, 3 goals
+   3. FOURSQUARE - 4 sides, 3 goals
+   4. BONEYARD CUP - 2 sides, 3 goals
+Camp # [1-4] (0 = back): Level set to THE PITCH.
+
+--- SOCCER ---
+COMPANY  DEP 1/1  GOLD 5000
+
+No hands. Blades are fine.
+The book calls: THE PITCH.
+
+   1. THE PITCH - 2 sides, 3 goals  [CURRENT]
+   2. THE MUDBOWL - 2 sides, 3 goals
+   3. FOURSQUARE - 4 sides, 3 goals
+   4. BONEYARD CUP - 2 sides, 3 goals
+Camp # [1-4] (0 = back): 
+--- SEVEN GAMES ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Every game keeps its own page.
+Stamped: 0 of 40.
+
+   1. TEAM DEATHMATCH - 0/6 stamped  >
+   2. CAPTURE THE FLAG - 0/10 stamped  >
+   3. ONSLAUGHT - 0/4 stamped  >
+   4. MUTANT - 0/4 stamped  >
+   5. SOCCER - 0/4 stamped  >
+   6. BASKETBALL - 0/6 stamped  >
+   7. FREE FOR ALL - 0/6 stamped  >
+Camp # [1-7] (0 = back): 
+--- Camp ---
+BOOK 0/40
+
+   1. GAME: SOCCER - 0/4 stamped  >
+   2. FIELD: THE PITCH - 2 sides, 3 goals  >
+   3. RANDOM SCENARIO - any game, any field
+   4. MATCH SETUP - 1-way, none, map  >
+
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+Camp # [1-4] (0 = back): 
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 1 - 2, 3, 4
+   2. FILL: NONE - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Two sides. One squad at FAIR.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: FAIR - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+One squad at STRONG. Yours too.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: STRONG - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Score to 1.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+To 1.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: STRONG - none to brutal
+   3. TARGET SCORE: 1 - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Clock: 5 minutes.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+To 1.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: STRONG - none to brutal
+   3. TARGET SCORE: 1 - map, 1, 3, 5, 10
+   4. TIME LIMIT: 5M - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): 
+--- Camp ---
+BOOK 0/40
+
+   1. GAME: SOCCER - 0/4 stamped  >
+   2. FIELD: THE PITCH - 2 sides, 3 goals  >
+   3. RANDOM SCENARIO - any game, any field
+   4. MATCH SETUP - 2-way, strong, to 1  >
+
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+Camp # [1-4] (0 = back): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+=== Scenario ===
+   1. Set Campaign (Multiplayer Game Modes)
+   2. Set Level (820. Soccer: THE PITCH)
+   3. View Scenario
+   4. Matchup
+   5. Progress
+   6. Replay Level
+   7. Back
+Choice: 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 IRO
+  [FILL: STRONG] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+
+   1. TEAM 1  FILL: STRONG
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: STRONG
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: NONE
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: NONE
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+=== Difficulty ===
+   1. Difficulty: Battle
+   2. Respawns: Off
+   3. Spawn Delay: Normal
+   4. Permadeath: On
+   5. Generators: Normal
+   6. Infinite Gold: Off
+   7. Back
+Choice: 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: Networking setup is not available in the headless text client.
+
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Camp ---
+BOOK 0/40
+
+   1. GAME: SOCCER - 0/4 stamped  >
+   2. FIELD: THE PITCH - 2 sides, 3 goals  >
+   3. RANDOM SCENARIO - any game, any field
+   4. MATCH SETUP - 2-way, strong, to 1  >
+
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+Camp # [1-4] (0 = back): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Level Editor
+   4. Game Settings
+   5. Help
+   6. Quit
+   7. Load Company
+   8. Cloud Saves
+Choice: 

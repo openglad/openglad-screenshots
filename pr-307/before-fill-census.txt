@@ -1,0 +1,214 @@
+================================================================================
+BEFORE — issue #305 evidence: how many bots the AI side actually gets
+================================================================================
+Build stamp : "2.1076" / "aaeab2d7" (clean master, no '+')
+Binary      : /home/yans/code/openglad/build/ci-test/openglad_text
+Captured    : 2026-09-19
+Campaign    : modes ("Multiplayer Game Modes")
+Human side  : ONE deployed member (Ajax, SOLDIER, level 1) — the company a
+              fresh "Begin New Game" creates. LINEUP reads TEAM 1 POWER 2306.
+
+METHOD
+------
+There is no --fill flag on openglad_text's protocol mode, so FILL has to be
+set the way a host sets it: through the interactive picker's Camp ->
+MATCH SETUP page. The drive below does exactly that, then GO! hands the same
+process to the JSON protocol session, where `census` and `state` are read.
+
+Per-run command (run from the repo root; $G = game row, $A = arena row,
+$K = extra FILL presses):
+
+  cd /home/yans/code/openglad
+  TH=$(mktemp -d)
+  HOME="$TH" OPENGLAD_CONFIG_DIR="$TH/cfg" timeout 120 \
+      ./build/ci-test/openglad_text < <stdin> > census-<tag>.out 2>&1
+  rm -rf "$TH"
+
+stdin, with the ordinals spelled out:
+
+  1            Begin New Game
+  <blank>      accept the generated company name
+  5            Campaign Select -> Multiplayer Game Modes
+  7            Team Build -> Camp
+  1            Camp -> GAME (the SEVEN GAMES index)
+  $G           index -> 5 = SOCCER, 6 = BASKETBALL
+  $A           field page -> 1 = THE PITCH (scen 820) / CENTER COURT (scen 824)
+  0            back to the index
+  0            back to the Camp root
+  4            Camp -> MATCH SETUP
+  1            TEAMS: 1 -> 2   (the deal also writes FILL: FAIR on both bands)
+  2 x $K       FILL presses: $K=0 -> FAIR, $K=1 -> STRONG, $K=2 -> BRUTAL
+  0            back to the Camp root
+  0            back to Team Build
+  12           Lineup   (read the bands: proof the FILL landed)
+  12           back
+  6            GO!
+  census
+  state
+  quit
+  8
+  6
+
+The six runs were driven by
+  scratchpad/media/work/census.sh <game_row> <arena_row> <fill_presses> <tag>
+  ./census.sh 5 1 0 soccer_fair      ./census.sh 6 1 0 basketball_fair
+  ./census.sh 5 1 1 soccer_strong    ./census.sh 6 1 1 basketball_strong
+  ./census.sh 5 1 2 soccer_brutal    ./census.sh 6 1 2 basketball_brutal
+Raw outputs: scratchpad/media/work/census-<tag>.out
+
+RESULT
+------
+                                     living bodies at tick 0
+  scenario            FILL      team 0 (human)   team 1 (AI)   AI max_hp  family
+  ------------------  --------  ---------------  ------------  ---------  ------
+  820 SOCCER          FAIR      1                1             153        3
+  THE PITCH           STRONG    1                1             153        3
+                      BRUTAL    1                1             153        3
+  824 BASKETBALL      FAIR      1                1             134        2
+  CENTER COURT        STRONG    1                1             134        2
+                      BRUTAL    1                1             189        2
+
+Raw census line, IDENTICAL in all six runs:
+  {"cmd":"census","tick":0,"team_counts":[1,1,0,0,0,0,0,0],
+   "dormant_counts":[0,0,0,0,0,0,0,0],"named":[],
+   "crew":[{"name":"Ajax","family":0,"level":1,"hp":166,"max_hp":166,
+            "dead":false}]}
+
+THE FINDING (issue #305)
+------------------------
+1. The AI side gets exactly ONE bot, for every FILL setting, in both sports.
+   FAIR, STRONG and BRUTAL change only how strong that single bot is — never
+   how many bodies walk on. A 1-a-side "soccer match" and a 1-a-side
+   "basketball game" is what a solo host is offered today.
+2. FILL does not even reliably change the strength: soccer's bot is the same
+   max_hp 153 at FAIR, STRONG and BRUTAL; basketball only moves at BRUTAL
+   (134 -> 189). The level solver's ladder is coarser than the wheel.
+3. The mechanism is the headcount rule, not a bug in the wheel:
+   packs/core/lib/lineup.lua FILL_PERCENT = {WEAK 75, FAIR 100, STRONG 125,
+   BRUTAL 150} scales POWER only, and
+   campaigns/modes/packs/modes.core/lib/mode_match.lua:300-305
+     local solved_size = squad_size            -- 5, the shipped squad table
+     if <matched> then
+       solved_size = og.min(matched_size, squad_size)
+     end
+   clamps the squad to `matched_size`, the D34 min-roster headcount — i.e. to
+   the human side's headcount. One human => one bot, whatever the wheel says.
+   The un-matched path (mode_match.lua:381-401) would have fielded the legacy
+   FIVE.
+4. FILL also writes the LOCAL seat's own band (campaign_picker.lua turn_fill,
+   "Yours too." in the toast), so turning the wheel up does not widen the gap
+   in the human's favour either.
+
+HONEST LIMIT
+------------
+The text protocol's `state` exposes family/hp/max_hp but NOT a walker's level,
+and the spawned bots are unnamed so census's `named` array (which does carry a
+level) is empty. max_hp above is therefore the observable strength proxy, not
+the level integer. For scale, a hand-built crew member of the same families
+reads (openglad_text --protocol --campaign modes --level 820 --team <F>
+--team-level <L>, then `census`):
+  family 2: L1 118, L2 142, L3 166, L4 190
+  family 3: L1 112, L2 124, L3 136, L4 148
+The spawned bots' 153 / 134 / 189 do not sit on those ladders because the fill
+path also calls set_difficulty(level), so the two numbers are not directly
+comparable — the COUNT is the claim this file makes; the strength column is
+supporting colour.
+
+================================================================================
+APPENDIX: the MATCH SETUP page and LINEUP bands as the drive left them
+(excerpt from census-soccer_brutal.out — proof the FILL really was set)
+================================================================================
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 1 - 2, 3, 4
+   2. FILL: NONE - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Two sides. One squad at FAIR.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: FAIR - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+One squad at STRONG. Yours too.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: STRONG - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+One squad at BRUTAL. Yours too.
+
+--- MATCH SETUP ---
+COMPANY  DEP 1/1  GOLD 5000
+
+Map score.
+
+   1. TEAMS: 2 - 2, 3, 4
+   2. FILL: BRUTAL - none to brutal
+   3. TARGET SCORE: MAP - map, 1, 3, 5, 10
+   4. TIME LIMIT: MAP - map, 5, 10, 15, 20m
+Camp # [1-4] (0 = back): 
+--- Camp ---
+BOOK 0/40
+
+   1. GAME: SOCCER - 0/4 stamped  >
+   2. FIELD: THE PITCH - 2 sides, 3 goals  >
+   3. RANDOM SCENARIO - any game, any field
+   4. MATCH SETUP - 2-way, brutal, map  >
+
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+Camp # [1-4] (0 = back): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 BLA
+  [FILL: BRUTAL] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: BRUTAL] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+
+   1. TEAM 1  FILL: BRUTAL
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: BRUTAL
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: NONE
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: NONE
