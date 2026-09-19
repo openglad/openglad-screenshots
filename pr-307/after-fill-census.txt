@@ -1,0 +1,111 @@
+================================================================================
+AFTER — issue #305 evidence: how many bots the AI side actually gets
+================================================================================
+Build stamp : "2.1127" / "121716f8" (feat/arena-setup, clean tree, no '+')
+Binary      : /home/yans/code/openglad/build/ci-test/openglad_text
+Captured    : 2026-09-19
+Campaign    : modes ("Multiplayer Arenas")
+Human side  : ONE deployed member (Ajax, SOLDIER, level 1) — the company a
+              fresh "Begin New Game" creates. LINEUP reads TEAM 1 POWER 2306,
+              the same company the BEFORE pass used.
+Pairs with  : before/before-fill-census.txt (team_counts:[1,1,...] in all six
+              runs on the base tree).
+
+METHOD
+------
+Same shape as the BEFORE pass: drive the interactive picker to set the arena
+and the FILL wheel, then GO! and read `census` over the JSON protocol. The
+route changed because the Camp's MATCH SETUP page is gone: the wheel now
+lives on the wizard's TEAMS step, reached through Team Build item 13.
+
+Per-run stdin, with the ordinals spelled out ($G = game row, $A = arena row,
+$R = the FILL row on the TEAMS step, $STEP = what to do to the wheel):
+
+  1            Begin New Game
+  <blank>      accept the generated company name
+  5            Campaign Select -> Multiplayer Arenas
+  13           Team Build -> Setup            (opens SETUP: GAME)
+  $G           GAME step  -> 1 TEAM DEATHMATCH, 2 CAPTURE THE FLAG,
+                             5 SOCCER, 6 BASKETBALL      (advances to ARENA)
+  $A           ARENA step -> 1 = the first arena of that game; this sets the
+                             level AND runs the deal, then advances to TEAMS
+  $STEP        TEAMS step -> nothing (keep the dealt word),
+                             "$R-" one wheel step back, "$R" one step forward,
+                             "$R" "$R" two steps forward
+  0            leave the wizard
+  12  12       Lineup (read the bands: proof the FILL landed), back
+  6            GO!
+  census / state / quit / 8 / 6
+
+  $R is 1 on a two-side arena and 2 on a four-side arena, because the TEAMS
+  step grows a SIDES row above FILL when the arena authors more than two
+  sides (SPEC D10). 300 THE CIRCLE is a four-side arena; that is why its runs
+  press row 2.
+
+Drivers: scratchpad/media/work/census_after.sh  (ball arenas, FILL on row 1)
+         scratchpad/media/work/census_after2.sh (explicit FILL row)
+Raw outputs: scratchpad/media/work/after/census-<tag>.out
+
+RESULT — the AI side's body count at tick 0
+-------------------------------------------
+                                  team_counts (census, tick 0)
+  scenario              FILL       team 0 (human)  AI side(s)   BEFORE
+  --------------------  ---------  --------------  -----------  ------
+  820 SOCCER            at rest    1               2            1
+      THE PITCH         FAIR       1               1            1
+                        STRONG     1               2            1
+                        BRUTAL     1               3            1
+  824 BASKETBALL        at rest    1               2            1
+      CENTER COURT      FAIR       1               1            1
+                        STRONG     1               2            1
+                        BRUTAL     1               3            1
+  ------------------------------------------------------------------
+  300 TEAM DEATHMATCH   at rest    1               1 / 1 / 1     (not measured
+      THE CIRCLE        FAIR       1               1 / 1 / 1      in the BEFORE
+                        STRONG     1               1 / 1 / 1      pass)
+                        BRUTAL     1               1 / 1 / 1
+  500 CAPTURE THE FLAG  at rest    1               1
+      (first CTF arena) FAIR       1               1
+                        STRONG     1               1
+                        BRUTAL     1               1
+
+Raw census lines:
+  820/824 at rest   {"cmd":"census","tick":0,"team_counts":[1,2,0,0,0,0,0,0],...}
+  820/824 FAIR      ...[1,1,0,0,0,0,0,0]...
+  820/824 STRONG    ...[1,2,0,0,0,0,0,0]...
+  820/824 BRUTAL    ...[1,3,0,0,0,0,0,0]...
+  300 every FILL    ...[1,1,1,1,0,0,0,0]...
+  500 every FILL    ...[1,1,0,0,0,0,0,0]...
+
+WHAT CHANGED
+------------
+1. Above FAIR now buys BODIES on the two ball games: STRONG = H+1, BRUTAL =
+   H+2, where H is the human side's headcount. On the base tree all six ball
+   runs read [1,1,...] — one bot at every setting.
+2. The shipped DEFAULT changed too, and that is the decision worth the
+   maintainer's eye: a fresh soccer or basketball arena now DEALS STRONG, so
+   the reporter's solo game fields two bots with no knob touched. One "<" tap
+   on the FILL row restores the old FAIR 1v1, and the save keeps the choice.
+3. Nothing else moved. 300 (four authored sides) and 500 (two) answer the
+   same counts at FAIR, STRONG and BRUTAL that they answer at rest — the rule
+   is ball-arena-only, by the campaign's own `bodies` fact.
+4. The UI count and the sim agree. Every ball run's TEAMS step printed
+   "TEAM 2 GREEN  n BOTS" with the same n the census then reported, and the
+   LINEUP page showed the same [FILL: ...] word on the band.
+
+HONEST LIMIT (unchanged from the BEFORE file)
+---------------------------------------------
+The text protocol's `state` exposes family/hp/max_hp but not a walker's
+level, and the spawned bots are unnamed, so census's `named` array is empty.
+The COUNT is the claim this file makes.
+
+CAPTURE NOTE
+------------
+20 runs are on disk in scratchpad/media/work/after/. The table above reports
+16 of them. The other four are the first pass at 300, which pressed row 1 of
+the TEAMS step: on a four-side arena row 1 is SIDES, not FILL, so those runs
+turned the side count instead of the wheel (one of them reads
+team_counts:[1,1,0,0,...] because SIDES stepped 4 -> 2). They were discarded
+and re-driven on row 2. Two of the 16 are deliberate duplicates: STRONG was
+reached both by stepping the wheel forward from the deal and by stepping
+forward then back, and both answered the same count.
