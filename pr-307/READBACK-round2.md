@@ -15,6 +15,19 @@ Every SDL run used `SDL_VIDEODRIVER=dummy SDL_AUDIODRIVER=dummy
 SDL_RENDER_DRIVER=software`, a scratch `OPENGLAD_CONFIG_DIR`, and was followed
 by `git status --porcelain cfg/` (empty every time).
 
+**Update (2026-09-20, after review).** The four-side FILL frames were re-taken
+from the worktree at `arena/r2-wp5` commit `a21c4c77` (the build stamps itself
+`cf46b31a+`, the commit before the amend; these frames carry no stamp). The
+reason: the pair's BEFORE half used to be `setup_step_teams_four_sides`, which
+comes from the GO-gate flow's deliberately under-deployed company — DEP 1/2,
+ONE fighter, a P2 seat waiting on TEAM 2 — while `_brutal` and `_healed` come
+from the FILL flow's two-fighter company. Each frame was right on its own, but
+across the pair "one click" silently added a fighter too. The FILL flow now
+takes its own BEFORE frames, `_rest` and `_empty`, so the only difference
+inside each pair is the click. `_brutal` and `_healed` re-converted
+**byte-identical** to the copies taken at `29b59c55`, which is the evidence
+that the capture edit changed nothing but the number of frames.
+
 **I read every image in this directory back, at 1x and 4x, before the PR body
 was touched.** What follows is what each one actually shows.
 
@@ -72,9 +85,11 @@ and they do not clash: the camp row agrees with the line above it.
 | `setup_step_game` | `[GAME]` pressed in and bracketed. **No `Cleared:` line.** Seven game rows reading `<GAME> - N ARENAS  >` and, LAST, `RANDOM - ANY GAME, ANY ARENA` (no ` >`, because it acts rather than descends). The keyboard highlight is on SOCCER, the current game. Footer `BACK` and `NEXT`, no PREV. |
 | `setup_step_arena` | `[ARENA]`. **One** line, the game's own: `KICK THE BALL INTO THEIR GOAL.` Four green arena rows; `THE PITCH … [CURRENT]` is highlighted; **THE MUDBOWL (821) is a played arena on this company and carries no tail at all.** Last row `RANDOM ARENA - ANY ARENA OF THIS GAME`, grey because it is an action. |
 | `setup_step_teams` | Two swatched team lines (`TEAM 1 P1 WASD 2 FIGHTERS`, `TEAM 2 3 BOTS`), the campaign line, then `FILL: STRONG - WEAK TO BRUTAL` with its `<` cell and the LINEUP door. No SIDES row — the arena authors two sides. **The note reads `WEAK TO BRUTAL`**: NONE is off this wheel. |
-| `setup_step_teams_four_sides` | 822 FOURSQUARE at rest: four swatched lines, TEAM 2 dimmed `NEEDS 1 FIGHTER`, TEAM 3 and 4 `2 BOTS`, the pointer line, `SIDES: 4`, `FILL: STRONG - WEAK TO BRUTAL`, LINEUP. |
-| `setup_step_teams_four_sides_brutal` | The same arena after ONE FILL click: `FILL: BRUTAL`, and **TEAM 2, TEAM 3 and TEAM 4 all read `4 BOTS`** against the company's `2 FIGHTERS`. `SIDES: 4` is unchanged. This is the reported bug, closed. |
-| `setup_step_teams_four_sides_healed` | The closed trap: every band wheeled to NONE in LINEUP, then one FILL click. `SIDES: 4`, `FILL: WEAK`, and `2 BOTS` on all three AI sides — not one side, and not a collapse to SIDES 2. |
+| `setup_step_teams_four_sides` | The GO-gate flow's 822, DEP **1/2**, ONE fighter: four swatched lines, TEAM 2 dimmed `NEEDS 1 FIGHTER`, TEAM 3 and 4 `2 BOTS`, `SIDES: 4`, `FILL: STRONG - WEAK TO BRUTAL`. A different company from the three below, so it is **not** used as any pair's BEFORE any more; it stays as the GO-gating witness. |
+| `setup_step_teams_four_sides_rest` | The FILL flow's 822, DEP **2/2**, `2 FIGHTERS`: `3 BOTS` on TEAM 2, 3 and 4 (a fresh ball arena deals STRONG, and STRONG is one more than the humans), `SIDES: 4`, `FILL: STRONG - WEAK TO BRUTAL`, LINEUP. The highlight is still on the `[TEAMS]` tab — nothing has been clicked on this step yet. |
+| `setup_step_teams_four_sides_brutal` | The same company one FILL click later: `FILL: BRUTAL` (highlighted), and **TEAM 2, 3 and 4 all read `4 BOTS`** against the same `2 FIGHTERS`. `SIDES: 4` unchanged, `DEP 2/2` unchanged. Every AI side moved, by one body each. This is the reported bug, closed. |
+| `setup_step_teams_four_sides_empty` | The trap itself, same company: every band wheeled to NONE on the LINEUP page. `SIDES: 1`, `FILL: NONE - WEAK TO BRUTAL`, and `NO FIGHTERS` on TEAM 2, 3 and 4. (The first take of this frame showed the stale BRUTAL census under `FILL: NONE`; the capture now waits for the queued restage, and this one is settled.) |
+| `setup_step_teams_four_sides_healed` | One FILL click out of that collapse: `SIDES: 4`, `FILL: WEAK`, and `2 BOTS` on all three AI sides — not one side, and not a collapse to SIDES 2. |
 | `setup_step_rules` | `[RULES]`. The pointer line `RESPAWNS AND THE REST: THE BASE CAMP DIFFICULTY.` (48 glyphs, last glyph inside the panel's 310 edge), then exactly two cycler rows, `SCORE: MAP - MAP, 1, 3, 5, 10` and `TIME LIMIT: MAP - MAP, 5 TO 20 MIN`, each with its `<` cell. Nothing else on the step. |
 | `setup_step_match` | `[MATCH]`. `SOCCER: THE PITCH`; two swatched census rows; and **all four rules lines survive** — `SCORE`/`TIME LIMIT`, `RESPAWNS`/`SPAWN DELAY`, `PERMADEATH`/`GENERATORS`, `DIFFICULTY`/`INFINITE GOLD`. The recap still states the whole match (R2-3). Then `VIEW LEVEL …  >` and a green `GO`. |
 | `setup_go_gated` | The MATCH step on 822, DEP 1/2: `SOCCER: FOURSQUARE`, **four** swatched census rows (`MATCHED BOTS (2) STRONG` on green, blue and yellow), all four rules lines, and `GO - DEPLOY FOR EVERY PLAYER` on the dimmed face. The gating is unchanged by round 2, and this frame is a second witness that the MATCH recap kept every rule line. |
@@ -98,8 +113,8 @@ frames themselves are untouched.
 | `r2_cmp_game` | round-1 `setup_step_game_x4` beside round-2's |
 | `r2_cmp_arena` | round-1 `setup_step_arena_x4` beside round-2's |
 | `r2_cmp_rules` | round-1 `setup_step_rules_x4` (eight rows) beside round-2's (two rows + the pointer line) |
-| `r2_cmp_teams_four_sides` | round-1 822 **at rest** beside round-2 822 **after one FILL click**. The captions say exactly that: the round-1 tree has no captured frame of a four-side arena after a FILL click, so the bug itself is evidenced by the text census, not by this pair. |
-| `r2_cmp_teams_trap` | round-2 only: 822 at rest beside 822 after every band was wheeled to NONE in LINEUP and ONE FILL click was made |
+| `r2_cmp_teams_four_sides` | `_rest` beside `_brutal`: ONE company (IRON KETTLE, 822, DEP 2/2, 2 FIGHTERS), ONE click apart. `3 BOTS` × 3 / STRONG → `4 BOTS` × 3 / BRUTAL. Both halves are this tip; the round-1 tree never captured a four-side arena after a FILL click, so the bug's before-state is evidenced by the text census, and this pair shows the fixed behaviour rather than a cross-tree diff. |
+| `r2_cmp_teams_trap` | `_empty` beside `_healed`, the same company again: `SIDES: 1` / `FILL: NONE` / `NO FIGHTERS` × 3 → `SIDES: 4` / `FILL: WEAK` / `2 BOTS` × 3, one click. |
 | `r2_cmp_campaign_card` | round-1 card beside round-2's |
 | `r2_cmp_stamp` | the two main menus stacked, stamps visible |
 
@@ -120,3 +135,7 @@ frames themselves are untouched.
 - **No round-1 four-side-after-FILL frame.** The round-1 tree captured that
   arena only at rest, so the bug's before-state is evidenced by the FB §1.3
   transcript and by the prose, not by a photograph.
+- **The screenshots are a TWO-fighter company; the text census is a ONE-human
+  one.** Bodies count off the humans (STRONG = humans + 1, BRUTAL = humans +
+  2), so the same click reads 3 → 4 BOTS in the frames and 2 → 3 in the
+  transcript. The PR body says so where both are quoted.
