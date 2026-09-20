@@ -73,8 +73,8 @@ runs past its edge appears in any shot.
 | `cmp_s10_census_x4.png` | TEAM 2's band alone at 4x: `FILL: STRONG` · `MAP UNITS` (dimmed) · `2 BOTS`. |
 | `cmp_s11_viewlevel.png` | S11. Same staged 820, same two-fighter company, same pitch render. BEFORE: `MATCHED BOTS (2) FAIR`. AFTER: `MATCHED BOTS (3) STRONG`. |
 | `cmp_s11_census_x4.png` | The census lines of that pair alone at 4x, stacked, so the `(2) FAIR` → `(3) STRONG` change reads column for column. |
-| `cmp_s13_soccer.png` | Two frames of the same seeded soccer demo (seed 1337, `TEAM_SIZE=1`), left `OPENGLAD_DEMO_FILL=2` (FAIR), right `=4` (BRUTAL). Left: one green bot. Right: the kickoff with the red fighter, the ball and **three** green bots. The FAIR half is labelled as the count the base tree gives at *every* FILL — a claim measured in `after-fill-census.txt`, not asserted from the picture. |
-| `cmp_s13_basketball.png` | The same pair on 824. Left one green bot beside the orange human; right three. |
+| `cmp_s13_soccer.png` | Two frames of the same seeded soccer demo (seed 1337, `TEAM_SIZE=1`), left `OPENGLAD_DEMO_FILL=2` (FAIR), right `=4` (BRUTAL). **Both halves are the kickoff**: the red fighter, the ball on the centre spot, and the bots — one green on the left, **three** on the right. FAIR is frame 0 and BRUTAL frame 8, because `CAPTURE_FOCUS=boss` follows a bot and the FAIR run's camera leaves the kickoff at frame 6, while frame 8 is the earliest BRUTAL frame with all three bots inside the window; the caption names each. (The first composition of this pair used the FAIR run's later camera, which had wandered to the top wall with no human and no ball in frame — it is replaced by this one.) The FAIR half is labelled as the count the base tree gives at *every* FILL — a claim measured in `after-fill-census.txt`, not asserted from the picture. |
+| `cmp_s13_basketball.png` | The same pair on 824, **both halves at frame 0** — the same tick, the same framing. Left: the red human, the orange ball and one green bot. Right: the same tick with three. |
 | `cmp_s14_stamp_x4.png` | The build stamps, stacked: `V2.1076 AAEAB2D7` over `V2.1127 121716F8`. This is the provenance pair for the whole set. |
 
 ## Animations
@@ -111,7 +111,21 @@ runs past its edge appears in any shot.
 4. `setup_step_teams_ball` / `setup_match_ball` were captured and then
    dropped: they are the same two screens as `setup_step_teams` /
    `setup_step_match` with only the keyboard highlight moved.
-5. **The SCENARIO screen's empty band** (`scenario_band`, and the right half
+5. **The soccer pair's two banners differ**: the FAIR half reads
+   `TEAMS MATCHED`, the BRUTAL half `TEAMS MATCHED (LIMIT)` (both basketball
+   halves read `(LIMIT)`). `(LIMIT)` is the pre-existing matcher announce —
+   `campaigns/modes/packs/modes.core/lib/mode_match.lua:500-517` fires it when
+   the first power solve clamped at either end — and it is not a #305 signal:
+   it says the power solve hit a bound, never that the body count was capped.
+   The body count that FILL bought is the one the census reports.
+6. **`zone_default_modes.png` / `_x4.png` are byte-identical to the wave-3
+   preview copies** under `media/wp7-preview/`. That is not a substitution:
+   `work/ppm-after/zone_default_modes.ppm` carries this capture session's
+   23:21 mtime and `work/shoot_after.log` records its
+   `zz_capture_default_zone_across_campaigns` run on the `121716f8` binary. Nothing
+   in wave 4 touched Base Camp and the renderer is deterministic, so the same
+   screen produced the same bytes.
+7. **The SCENARIO screen's empty band** (`scenario_band`, and the right half
    of `cmp_s6_scenario.png`) is where the `SCORE: MAP` row used to be. That
    is the shape SPEC §8 prescribes — `ctf_capture_limit` now has one surface
    — but it is the one place a reviewer's eye will stop, and it is shipped
