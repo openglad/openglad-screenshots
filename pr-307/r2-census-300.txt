@@ -1,0 +1,543 @@
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/westlands.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/westlands.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/gladiator.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/gladiator.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/tryxian.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/tryxian.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/imaginations.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/imaginations.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/longseason.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/longseason.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/tower.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/tower.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin/modes.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/modes.glad
+Restored default campaign: /home/yans/code/openglad/.claude/worktrees/arena-r2-wp5/build/ci-test/builtin-dev/concept.glad -> /tmp/nix-shell.wDHnlf/tmp.3npvfbjb0n/cfg/campaigns/concept.glad
+Mounting campaign package: gladiatorRegistered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+io_init(headless): done
+Loading settings
+og_open_read: trying PhysFS: cfg/openglad.yaml
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Level Editor
+   4. Game Settings
+   5. Help
+   6. Quit
+   7. Load Company
+   8. Cloud Saves
+Choice: 
+=== Found Your Company ===
+Name: GREY BADGER CREW
+Enter a name, blank to accept, or 'reroll' for another suggestion: 
+--- Campaign Select ---
+  1. Gladiator
+  2. The Tryxian Chronicles
+  3. War of the Westlands
+  4. The Long Season
+  5. Multiplayer Arenas
+  6. The Endless Tower
+  7. Imaginations
+  8. Concept Playground
+Select campaign [1-8] (blank keeps current): Registered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+Mounting campaign package: modesRegistered 10 class pack script(s)
+Registered 38 class pack lib module(s)
+Registered 76 class pack family chunk(s)
+Installed 2 class pack(s): 77 family descriptor(s)
+[WARN] load_map_data: not supported in headless mode
+[WARN] load_decor_data: not supported in headless mode
+Warning: create_level_render not supported in headless mode
+[ERROR] Cannot open level file for reading: scen1.fss
+
+Team: Ajax (SOLDIER)
+Gold: 5000
+[New game: build your team before GO!]
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - TEAM DEATHMATCH: THE CIRCLE  >
+Camp # [1-1] (0 = back): [ERROR] Cannot open level file for reading: scen1.fss
+[ERROR] Cannot open level file for reading: scen1.fss
+[ERROR] headless_server_level_load_failed level=1 action=fallback_to_300
+[ERROR] Cannot open level file for reading: scen1.fss
+
+--- SETUP: GAME ---
+   1. TEAM DEATHMATCH - 6 arenas  >
+   2. CAPTURE THE FLAG - 10 arenas  >
+   3. ONSLAUGHT - 4 arenas  >
+   4. MUTANT - 4 arenas  >
+   5. SOCCER - 4 arenas  >
+   6. BASKETBALL - 6 arenas  >
+   7. FREE FOR ALL - 6 arenas  >
+   8. RANDOM - any game, any arena
+   9. Next: TEAMS
+  10. Back
+Setup # [1-10] (0 = back, N- steps a wheel back): [ERROR] Cannot open level file for reading: scen1.fss
+[ERROR] Cannot open level file for reading: scen1.fss
+
+--- SETUP: ARENA ---
+First team to the kill target wins.
+   1. THE CIRCLE - 4 teams, to 20
+   2. BLOODGLADE - 4 teams, to 20
+   3. ARCHIPELAGO - 4 teams, to 20
+   4. GATEKEEPERS - 4 teams, to 12
+   5. THE CASTLE - 4 teams, to 10
+   6. BULLSEYE - 4 teams, to 20
+   7. RANDOM ARENA - any arena of this game
+   8. Next: TEAMS
+   9. Prev: GAME
+  10. Back
+Setup # [1-10] (0 = back, N- steps a wheel back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Level set to THE CIRCLE.
+
+--- SETUP: TEAMS ---
+TEAM 1 RED  P1 GRE  1 FIGHTER
+TEAM 2 GREEN  1 BOT
+TEAM 3 BLUE  1 BOT
+TEAM 4 YELLOW  1 BOT
+   1. SIDES: 4 - 2, 3, 4
+   2. FILL: FAIR - weak to brutal
+   3. LINEUP - fill per team, map units  >
+   4. Next: RULES
+   5. Prev: ARENA
+   6. Back
+Setup # [1-6] (0 = back, N- steps a wheel back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+
+--- SETUP: TEAMS ---
+TEAM 1 RED  P1 GRE  1 FIGHTER
+TEAM 2 GREEN  1 BOT
+TEAM 3 BLUE  1 BOT
+TEAM 4 YELLOW  1 BOT
+   1. SIDES: 4 - 2, 3, 4
+   2. FILL: STRONG - weak to brutal
+   3. LINEUP - fill per team, map units  >
+   4. Next: RULES
+   5. Prev: ARENA
+   6. Back
+Setup # [1-6] (0 = back, N- steps a wheel back): 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - TEAM DEATHMATCH: THE CIRCLE  >
+Camp # [1-1] (0 = back): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: STRONG] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: STRONG
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: STRONG
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: STRONG
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: BRUTAL
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: BRUTAL] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: BRUTAL
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: STRONG
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: STRONG
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: NONE
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: STRONG
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: STRONG
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: BRUTAL
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: BRUTAL] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: BRUTAL
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: STRONG
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: NONE
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  EMPTY  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: NONE
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: STRONG
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: BRUTAL
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  EMPTY  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: BRUTAL] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: NONE
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: BRUTAL
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: NONE
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  EMPTY  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  EMPTY  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: STRONG] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: NONE
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: NONE
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: STRONG
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: BRUTAL
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  EMPTY  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  EMPTY  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: BRUTAL] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: NONE
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: NONE
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: BRUTAL
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+FILL: NONE
+
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: NONE] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: NONE] [MAP UNITS: ON]  NO FIGHTERS  NO MAP UNITS
+
+   1. TEAM 1  FILL: NONE
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: NONE
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: NONE
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: NONE
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - TEAM DEATHMATCH: THE CIRCLE  >
+Camp # [1-1] (0 = back): 
+--- SETUP: GAME ---
+   1. TEAM DEATHMATCH - 6 arenas  >
+   2. CAPTURE THE FLAG - 10 arenas  >
+   3. ONSLAUGHT - 4 arenas  >
+   4. MUTANT - 4 arenas  >
+   5. SOCCER - 4 arenas  >
+   6. BASKETBALL - 6 arenas  >
+   7. FREE FOR ALL - 6 arenas  >
+   8. RANDOM - any game, any arena
+   9. Next: TEAMS
+  10. Back
+Setup # [1-10] (0 = back, N- steps a wheel back): 
+--- SETUP: TEAMS ---
+TEAM 1 RED  P1 GRE  1 FIGHTER
+TEAM 2 GREEN  NO FIGHTERS
+TEAM 3 BLUE  NO FIGHTERS
+TEAM 4 YELLOW  NO FIGHTERS
+   1. SIDES: 1 - 2, 3, 4
+   2. FILL: NONE - weak to brutal
+   3. LINEUP - fill per team, map units  >
+   4. Next: RULES
+   5. Prev: ARENA
+   6. Back
+Setup # [1-6] (0 = back, N- steps a wheel back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+
+--- SETUP: TEAMS ---
+TEAM 1 RED  P1 GRE  1 FIGHTER
+TEAM 2 GREEN  1 BOT
+TEAM 3 BLUE  1 BOT
+TEAM 4 YELLOW  1 BOT
+   1. SIDES: 4 - 2, 3, 4
+   2. FILL: WEAK - weak to brutal
+   3. LINEUP - fill per team, map units  >
+   4. Next: RULES
+   5. Prev: ARENA
+   6. Back
+Setup # [1-6] (0 = back, N- steps a wheel back): 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - TEAM DEATHMATCH: THE CIRCLE  >
+Camp # [1-1] (0 = back): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Lineup ---
+TEAM 1 RED  POWER 2306   P1 GRE
+  [FILL: WEAK] [MAP UNITS: ON]  1 FIGHTER  NO MAP UNITS
+TEAM 2 GREEN  POWER --   NO SEAT
+  [FILL: WEAK] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 3 BLUE  POWER --   NO SEAT
+  [FILL: WEAK] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+TEAM 4 YELLOW  POWER --   NO SEAT
+  [FILL: WEAK] [MAP UNITS: ON]  1 BOT  NO MAP UNITS
+
+   1. TEAM 1  FILL: WEAK
+   2. TEAM 1  MAP UNITS: ON
+   3. TEAM 2  FILL: WEAK
+   4. TEAM 2  MAP UNITS: ON
+   5. TEAM 3  FILL: WEAK
+   6. TEAM 3  MAP UNITS: ON
+   7. TEAM 4  FILL: WEAK
+   8. TEAM 4  MAP UNITS: ON
+   9. Split even  (one seat: same as Unite)
+  10. Split fair  (one seat: same as Unite)
+  11. Unite
+  12. Back
+Lineup [1-12] (blank exits): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: {"status":"ready","level":300,"title":"Team Deathmatch: THE CIRCLE","num_entities":84,"seed":42}
+{"cmd":"census","tick":0,"team_counts":[1,1,1,1,0,0,0,0],"dormant_counts":[0,0,0,0,0,0,0,0],"named":[],"crew":[{"name":"Ajax","family":0,"level":1,"hp":166,"max_hp":166,"dead":false}]}
+{"cmd":"state","entities":[{"id":0,"eid":1,"order":5,"family":0,"team":0,"x":144,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":1,"eid":2,"order":5,"family":0,"team":0,"x":208,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":2,"eid":3,"order":5,"family":0,"team":0,"x":272,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":3,"eid":4,"order":5,"family":0,"team":0,"x":352,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":4,"eid":5,"order":5,"family":0,"team":0,"x":96,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":5,"eid":6,"order":5,"family":0,"team":0,"x":176,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":6,"eid":7,"order":5,"family":0,"team":0,"x":240,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":7,"eid":8,"order":5,"family":0,"team":0,"x":320,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":8,"eid":9,"order":5,"family":0,"team":0,"x":400,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":9,"eid":10,"order":5,"family":0,"team":0,"x":144,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":10,"eid":11,"order":5,"family":0,"team":0,"x":208,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":11,"eid":12,"order":5,"family":0,"team":0,"x":272,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":12,"eid":13,"order":5,"family":0,"team":0,"x":352,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":13,"eid":14,"order":5,"family":0,"team":0,"x":96,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":14,"eid":15,"order":5,"family":0,"team":0,"x":176,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":15,"eid":16,"order":5,"family":0,"team":0,"x":240,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":16,"eid":17,"order":5,"family":0,"team":0,"x":304,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":17,"eid":18,"order":5,"family":0,"team":0,"x":400,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":18,"eid":19,"order":5,"family":0,"team":0,"x":208,"y":384,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":19,"eid":20,"order":5,"family":0,"team":0,"x":336,"y":384,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":20,"eid":21,"order":5,"family":0,"team":1,"x":576,"y":592,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":21,"eid":22,"order":5,"family":0,"team":1,"x":640,"y":592,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":22,"eid":23,"order":5,"family":0,"team":1,"x":704,"y":592,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":23,"eid":24,"order":5,"family":0,"team":1,"x":784,"y":592,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":24,"eid":25,"order":5,"family":0,"team":1,"x":528,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":25,"eid":26,"order":5,"family":0,"team":1,"x":608,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":26,"eid":27,"order":5,"family":0,"team":1,"x":672,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":27,"eid":28,"order":5,"family":0,"team":1,"x":736,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":28,"eid":29,"order":5,"family":0,"team":1,"x":832,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":29,"eid":30,"order":5,"family":0,"team":1,"x":560,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":30,"eid":31,"order":5,"family":0,"team":1,"x":640,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":31,"eid":32,"order":5,"family":0,"team":1,"x":704,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":32,"eid":33,"order":5,"family":0,"team":1,"x":768,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":33,"eid":34,"order":5,"family":0,"team":1,"x":528,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":34,"eid":35,"order":5,"family":0,"team":1,"x":592,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":35,"eid":36,"order":5,"family":0,"team":1,"x":672,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":36,"eid":37,"order":5,"family":0,"team":1,"x":736,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":37,"eid":38,"order":5,"family":0,"team":1,"x":816,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":38,"eid":39,"order":5,"family":0,"team":1,"x":624,"y":800,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":39,"eid":40,"order":5,"family":0,"team":1,"x":720,"y":800,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":40,"eid":41,"order":5,"family":0,"team":2,"x":544,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":41,"eid":42,"order":5,"family":0,"team":2,"x":608,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":42,"eid":43,"order":5,"family":0,"team":2,"x":672,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":43,"eid":44,"order":5,"family":0,"team":2,"x":736,"y":176,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":44,"eid":45,"order":5,"family":0,"team":2,"x":512,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":45,"eid":46,"order":5,"family":0,"team":2,"x":576,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":46,"eid":47,"order":5,"family":0,"team":2,"x":640,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":47,"eid":48,"order":5,"family":0,"team":2,"x":704,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":48,"eid":49,"order":5,"family":0,"team":2,"x":768,"y":224,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":49,"eid":50,"order":5,"family":0,"team":2,"x":544,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":50,"eid":51,"order":5,"family":0,"team":2,"x":608,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":51,"eid":52,"order":5,"family":0,"team":2,"x":672,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":52,"eid":53,"order":5,"family":0,"team":2,"x":736,"y":272,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":53,"eid":54,"order":5,"family":0,"team":2,"x":512,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":54,"eid":55,"order":5,"family":0,"team":2,"x":576,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":55,"eid":56,"order":5,"family":0,"team":2,"x":640,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":56,"eid":57,"order":5,"family":0,"team":2,"x":704,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":57,"eid":58,"order":5,"family":0,"team":2,"x":768,"y":320,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":58,"eid":59,"order":5,"family":0,"team":2,"x":608,"y":384,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":59,"eid":60,"order":5,"family":0,"team":2,"x":672,"y":384,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":60,"eid":61,"order":5,"family":0,"team":3,"x":128,"y":560,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":61,"eid":62,"order":5,"family":0,"team":3,"x":192,"y":560,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":62,"eid":63,"order":5,"family":0,"team":3,"x":256,"y":560,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":63,"eid":64,"order":5,"family":0,"team":3,"x":320,"y":560,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":64,"eid":65,"order":5,"family":0,"team":3,"x":96,"y":608,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":65,"eid":66,"order":5,"family":0,"team":3,"x":160,"y":608,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":66,"eid":67,"order":5,"family":0,"team":3,"x":224,"y":608,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":67,"eid":68,"order":5,"family":0,"team":3,"x":288,"y":608,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":68,"eid":69,"order":5,"family":0,"team":3,"x":352,"y":608,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":69,"eid":70,"order":5,"family":0,"team":3,"x":128,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":70,"eid":71,"order":5,"family":0,"team":3,"x":192,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":71,"eid":72,"order":5,"family":0,"team":3,"x":256,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":72,"eid":73,"order":5,"family":0,"team":3,"x":320,"y":656,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":73,"eid":74,"order":5,"family":0,"team":3,"x":96,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":74,"eid":75,"order":5,"family":0,"team":3,"x":160,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":75,"eid":76,"order":5,"family":0,"team":3,"x":224,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":76,"eid":77,"order":5,"family":0,"team":3,"x":288,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":77,"eid":78,"order":5,"family":0,"team":3,"x":352,"y":704,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":78,"eid":79,"order":5,"family":0,"team":3,"x":192,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":79,"eid":80,"order":5,"family":0,"team":3,"x":256,"y":752,"floor":0,"hp":0,"max_hp":0,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":true},{"id":80,"eid":151,"order":0,"family":0,"team":0,"x":144,"y":176,"floor":0,"hp":166,"max_hp":166,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":81,"eid":152,"order":0,"family":0,"team":1,"x":576,"y":592,"floor":0,"hp":133,"max_hp":133,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":82,"eid":153,"order":0,"family":0,"team":2,"x":608,"y":176,"floor":0,"hp":133,"max_hp":133,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":83,"eid":154,"order":0,"family":0,"team":3,"x":256,"y":560,"floor":0,"hp":133,"max_hp":133,"act":0,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false}],"weapons":[],"fx":[{"id":0,"eid":81,"order":2,"family":2,"team":0,"x":603,"y":31,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":1,"eid":82,"order":2,"family":2,"team":0,"x":603,"y":31,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":2,"eid":83,"order":2,"family":2,"team":0,"x":603,"y":31,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":3,"eid":84,"order":2,"family":2,"team":0,"x":791,"y":141,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":4,"eid":85,"order":2,"family":2,"team":0,"x":791,"y":141,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":5,"eid":86,"order":2,"family":2,"team":0,"x":791,"y":141,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":6,"eid":87,"order":2,"family":2,"team":0,"x":913,"y":320,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":7,"eid":88,"order":2,"family":2,"team":0,"x":913,"y":320,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":8,"eid":89,"order":2,"family":2,"team":0,"x":913,"y":625,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":9,"eid":90,"order":2,"family":2,"team":0,"x":913,"y":625,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":10,"eid":91,"order":2,"family":2,"team":0,"x":913,"y":625,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":11,"eid":92,"order":2,"family":2,"team":0,"x":810,"y":798,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":12,"eid":93,"order":2,"family":2,"team":0,"x":810,"y":798,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":13,"eid":94,"order":2,"family":2,"team":0,"x":810,"y":798,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":14,"eid":95,"order":2,"family":2,"team":0,"x":664,"y":908,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":15,"eid":96,"order":2,"family":2,"team":0,"x":664,"y":908,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":16,"eid":97,"order":2,"family":2,"team":0,"x":664,"y":908,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":17,"eid":98,"order":2,"family":2,"team":0,"x":319,"y":912,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":18,"eid":99,"order":2,"family":2,"team":0,"x":319,"y":912,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":19,"eid":100,"order":2,"family":2,"team":0,"x":141,"y":799,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":20,"eid":101,"order":2,"family":2,"team":0,"x":141,"y":799,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":21,"eid":102,"order":2,"family":2,"team":0,"x":141,"y":799,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":22,"eid":103,"order":2,"family":2,"team":0,"x":62,"y":665,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":23,"eid":104,"order":2,"family":2,"team":0,"x":62,"y":665,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":24,"eid":105,"order":2,"family":2,"team":0,"x":39,"y":382,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":25,"eid":106,"order":2,"family":2,"team":0,"x":39,"y":382,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":26,"eid":107,"order":2,"family":2,"team":0,"x":39,"y":382,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":27,"eid":108,"order":2,"family":2,"team":0,"x":307,"y":46,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":28,"eid":109,"order":2,"family":2,"team":0,"x":307,"y":46,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":29,"eid":110,"order":2,"family":2,"team":0,"x":213,"y":97,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":30,"eid":111,"order":2,"family":2,"team":0,"x":213,"y":97,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":31,"eid":112,"order":2,"family":2,"team":0,"x":213,"y":97,"floor":0,"hp":1000,"max_hp":1000,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":32,"eid":113,"order":2,"family":3,"team":0,"x":478,"y":87,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":33,"eid":114,"order":2,"family":3,"team":0,"x":478,"y":87,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":34,"eid":115,"order":2,"family":3,"team":0,"x":478,"y":87,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":35,"eid":116,"order":2,"family":3,"team":0,"x":481,"y":84,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":36,"eid":117,"order":2,"family":3,"team":0,"x":481,"y":84,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":37,"eid":118,"order":2,"family":3,"team":0,"x":473,"y":81,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":38,"eid":119,"order":2,"family":3,"team":0,"x":473,"y":81,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":39,"eid":120,"order":2,"family":3,"team":0,"x":473,"y":81,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":40,"eid":121,"order":2,"family":3,"team":0,"x":480,"y":35,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":41,"eid":122,"order":2,"family":3,"team":0,"x":480,"y":35,"floor":0,"hp":100,"max_hp":100,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":42,"eid":123,"order":2,"family":1,"team":0,"x":128,"y":432,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":43,"eid":124,"order":2,"family":1,"team":0,"x":48,"y":496,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":44,"eid":125,"order":2,"family":1,"team":0,"x":48,"y":464,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":45,"eid":126,"order":2,"family":1,"team":0,"x":112,"y":480,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":46,"eid":127,"order":2,"family":1,"team":0,"x":144,"y":464,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":47,"eid":128,"order":2,"family":1,"team":0,"x":64,"y":448,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":48,"eid":129,"order":2,"family":1,"team":0,"x":512,"y":48,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":49,"eid":130,"order":2,"family":1,"team":0,"x":512,"y":80,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":50,"eid":131,"order":2,"family":1,"team":0,"x":512,"y":96,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":51,"eid":132,"order":2,"family":1,"team":0,"x":464,"y":64,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":52,"eid":133,"order":2,"family":1,"team":0,"x":496,"y":32,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":53,"eid":134,"order":2,"family":1,"team":0,"x":464,"y":32,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":54,"eid":135,"order":2,"family":1,"team":0,"x":896,"y":480,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":55,"eid":136,"order":2,"family":1,"team":0,"x":800,"y":480,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":56,"eid":137,"order":2,"family":1,"team":0,"x":864,"y":480,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":57,"eid":138,"order":2,"family":1,"team":0,"x":896,"y":464,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":58,"eid":139,"order":2,"family":1,"team":0,"x":832,"y":448,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":59,"eid":140,"order":2,"family":1,"team":0,"x":816,"y":464,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":60,"eid":141,"order":2,"family":1,"team":0,"x":496,"y":864,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":61,"eid":142,"order":2,"family":1,"team":0,"x":528,"y":912,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":62,"eid":143,"order":2,"family":1,"team":0,"x":448,"y":912,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":63,"eid":144,"order":2,"family":1,"team":0,"x":480,"y":880,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":64,"eid":145,"order":2,"family":1,"team":0,"x":464,"y":864,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":65,"eid":146,"order":2,"family":1,"team":0,"x":448,"y":880,"floor":0,"hp":10,"max_hp":10,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":66,"eid":147,"order":2,"family":12,"team":0,"x":848,"y":480,"floor":0,"hp":0,"max_hp":0,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":67,"eid":148,"order":2,"family":12,"team":0,"x":480,"y":896,"floor":0,"hp":0,"max_hp":0,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":68,"eid":149,"order":2,"family":12,"team":0,"x":80,"y":480,"floor":0,"hp":0,"max_hp":0,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false},{"id":69,"eid":150,"order":2,"family":12,"team":0,"x":480,"y":48,"floor":0,"hp":0,"max_hp":0,"act":2,"ani":0,"busy":0,"frozen":0,"curdir":4,"enddir":4,"ncmd":0,"path_len":0,"dormant":false,"foe":0,"dead":false}],"mode":{"active":true,"name":"TDM","winner_team":-1,"vars":[1,1,2306,10101000,10101001,1,0,0,15,20,7200,120,3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],"hud":[],"beacons":[],"cameras":[]}}
+{"cmd":"quit","status":"ok"}
+
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Level Editor
+   4. Game Settings
+   5. Help
+   6. Quit
+   7. Load Company
+   8. Cloud Saves
+Choice: 
