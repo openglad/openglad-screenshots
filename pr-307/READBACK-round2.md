@@ -31,9 +31,11 @@ that the capture edit changed nothing but the number of frames.
 **I read every image in this directory back, at 1x and 4x, before the PR body
 was touched.** What follows is what each one actually shows.
 
-The BEFORE half of every pair is round 1's own AFTER set at `121716f8`
-(`pr-307/*.png` from commit `9e86f798`), so both halves come from the same
-capture seam on the same campaign.
+The BEFORE half of every CROSS-TREE pair is round 1's own AFTER set at
+`121716f8` (`pr-307/*.png` from commit `9e86f798`), so both halves come from
+the same capture seam on the same campaign. The two four-side pairs are the
+exception and say so: both of their halves are this tip, one click apart,
+because round 1 never captured a four-side arena after a FILL click.
 
 In this repository every file below carries an `r2_` prefix (`zone_default_modes`
 is `pr-307/r2_zone_default_modes.png`), so round 1's files at the same names are
