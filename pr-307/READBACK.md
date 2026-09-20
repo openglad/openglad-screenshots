@@ -71,7 +71,7 @@ runs past its edge appears in any shot.
 | `cmp_s9_transcript.png` | The terminal client's own output: the GAME step's seven rows, the TEAMS step reading `TEAM 2 GREEN  2 BOTS` beside `FILL: STRONG`, and the MATCH step stating the whole match. The full transcript is `after-text-flow.txt`. |
 | `cmp_s10_lineup.png` | S10. BEFORE is LINEUP on scen 300 at `FILL: FAIR` with `NO MAP UNITS` in every census cell (the base tree had no 820 LINEUP shot); AFTER is LINEUP on a fresh 820 with `FILL: STRONG` and `2 BOTS`. The caption strips name both arenas — this pair is not the same level and says so. |
 | `cmp_s10_census_x4.png` | TEAM 2's band alone at 4x: `FILL: STRONG` · `MAP UNITS` (dimmed) · `2 BOTS`. |
-| `cmp_s11_viewlevel.png` | S11. Same staged 820, same two-fighter company, same pitch render. BEFORE: `MATCHED BOTS (2) FAIR`. AFTER: `MATCHED BOTS (3) STRONG`. |
+| `cmp_s11_viewlevel.png` | S11. Same staged 820, same two-fighter company. BEFORE: `MATCHED BOTS (2) FAIR`. AFTER: `MATCHED BOTS (3) STRONG`. The two pitch previews are **not** the same render — the AFTER half is panned so the top wall row and the left wall column are in frame (`magick compare`: 20143 differing pixels, 31 % of the 320x200 frame). See gap 8: the pan is wall-clock, not staging. The census lines are the comparison. |
 | `cmp_s11_census_x4.png` | The census lines of that pair alone at 4x, stacked, so the `(2) FAIR` → `(3) STRONG` change reads column for column. |
 | `cmp_s13_soccer.png` | Two frames of the same seeded soccer demo (seed 1337, `TEAM_SIZE=1`), left `OPENGLAD_DEMO_FILL=2` (FAIR), right `=4` (BRUTAL). **Both halves are the kickoff**: the red fighter, the ball on the centre spot, and the bots — one green on the left, **three** on the right. FAIR is frame 0 and BRUTAL frame 8, because `CAPTURE_FOCUS=boss` follows a bot and the FAIR run's camera leaves the kickoff at frame 6, while frame 8 is the earliest BRUTAL frame with all three bots inside the window; the caption names each. (The first composition of this pair used the FAIR run's later camera, which had wandered to the top wall with no human and no ball in frame — it is replaced by this one.) The FAIR half is labelled as the count the base tree gives at *every* FILL — a claim measured in `after-fill-census.txt`, not asserted from the picture. |
 | `cmp_s13_basketball.png` | The same pair on 824, **both halves at frame 0** — the same tick, the same framing. Left: the red human, the orange ball and one green bot. Right: the same tick with three. |
@@ -130,3 +130,15 @@ runs past its edge appears in any shot.
    is the shape SPEC §8 prescribes — `ctf_capture_limit` now has one surface
    — but it is the one place a reviewer's eye will stop, and it is shipped
    deliberately rather than overlooked.
+8. **The S11 pair's two pitch previews sit at different pan phases.** The
+   VIEW LEVEL band's camera does **not** centre on the staged units: it is a
+   deterministic wall-clock ping-pong over `query_timer()`
+   (`preview_pan_offset`, `src/interface/ui/picker_team_build.cpp:941`, spent
+   at `:1078` as `visuals.topx` and `:1079` as `visuals.topy`), ~55 ms per
+   pixel horizontally. That whole region is **byte-identical** between
+   `aaeab2d7` and `121716f8` (`diff` over the two files' pan blocks is
+   empty), so the phase difference is the wall-clock moment each frame was
+   grabbed and nothing else — not the third bot, not a layout change. The
+   band's own code comment says the same: "tests assert band content, never
+   pan phase." The comparison this pair is for — `(2) FAIR` → `(3) STRONG` —
+   is unaffected, and `cmp_s11_census_x4.png` isolates it.
