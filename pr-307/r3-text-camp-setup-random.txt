@@ -1,0 +1,210 @@
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/westlands.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/westlands.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/gladiator.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/gladiator.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/tryxian.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/tryxian.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/imaginations.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/imaginations.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/longseason.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/longseason.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/tower.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/tower.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin/modes.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/modes.glad
+Restored default campaign: /home/yans/code/openglad/build/ci-test/builtin-dev/concept.glad -> /tmp/nix-shell.Eta12h/tmp.Ry3uqf4XIv/cfg/campaigns/concept.glad
+Mounting campaign package: gladiatorRegistered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+io_init(headless): done
+Loading settings
+og_open_read: trying PhysFS: cfg/openglad.yaml
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Level Editor
+   4. Game Settings
+   5. Help
+   6. Quit
+   7. Load Company
+   8. Cloud Saves
+Choice: 
+=== Found Your Company ===
+Name: IVORY KETTLE ORDER
+Enter a name, blank to accept, or 'reroll' for another suggestion: 
+--- Campaign Select ---
+  1. Gladiator
+  2. The Tryxian Chronicles
+  3. War of the Westlands
+  4. The Long Season
+  5. Multiplayer Arenas
+  6. The Endless Tower
+  7. Imaginations
+  8. Concept Playground
+Select campaign [1-8] (blank keeps current): Registered 2 class pack script(s)
+Registered 20 class pack lib module(s)
+Registered 70 class pack family chunk(s)
+Installed 1 class pack(s): 71 family descriptor(s)
+Mounting campaign package: modesRegistered 10 class pack script(s)
+Registered 38 class pack lib module(s)
+Registered 76 class pack family chunk(s)
+Installed 2 class pack(s): 77 family descriptor(s)
+[WARN] load_map_data: not supported in headless mode
+[WARN] load_decor_data: not supported in headless mode
+Warning: create_level_render not supported in headless mode
+[ERROR] Cannot open level file for reading: scen1.fss
+
+Team: Ajax (SOLDIER)
+Gold: 5000
+[New game: build your team before GO!]
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - TEAM DEATHMATCH: THE CIRCLE  >
+Camp # [1-1] (0 = back): [ERROR] Cannot open level file for reading: scen1.fss
+[ERROR] Cannot open level file for reading: scen1.fss
+[ERROR] headless_server_level_load_failed level=1 action=fallback_to_300
+[ERROR] Cannot open level file for reading: scen1.fss
+
+--- SETUP: GAME ---
+   1. TEAM DEATHMATCH - 6 arenas  >
+   2. CAPTURE THE FLAG - 10 arenas  >
+   3. ONSLAUGHT - 4 arenas  >
+   4. MUTANT - 4 arenas  >
+   5. SOCCER - 4 arenas  >
+   6. BASKETBALL - 6 arenas  >
+   7. FREE FOR ALL - 6 arenas  >
+   8. RANDOM - any game, any arena
+   9. Next: TEAMS
+  10. Back
+Setup # [1-10] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Level set to Onslaught: THE MARCHES.
+
+--- SETUP: TEAMS ---
+MATCH: ONSLAUGHT - 3 TEAMS ACTIVE
+  RED TEAM  ACTIVE - COMPANY (1)
+  GREEN TEAM  ACTIVE - GENERATORS (4)
+  BLUE TEAM  ACTIVE - GENERATORS (4)
+SEATS: CO-OP
+  P1 YOU - RED TEAM
+
+RED TEAM (YOURS)
+  Ajax - SOLDIER Lv 1
+  4x GENERATOR
+   1. LINEUP - fill per team, map units  >
+   2. Next: RULES
+   3. Prev: ARENA
+   4. Back
+Setup # [1-4] (0 = back): 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - ONSLAUGHT: THE MARCHES  >
+Camp # [1-1] (0 = back): 
+--- SETUP: GAME ---
+   1. TEAM DEATHMATCH - 6 arenas  >
+   2. CAPTURE THE FLAG - 10 arenas  >
+   3. ONSLAUGHT - 4 arenas  >
+   4. MUTANT - 4 arenas  >
+   5. SOCCER - 4 arenas  >
+   6. BASKETBALL - 6 arenas  >
+   7. FREE FOR ALL - 6 arenas  >
+   8. RANDOM - any game, any arena
+   9. Next: TEAMS
+  10. Back
+Setup # [1-10] (0 = back): 
+--- SETUP: ARENA ---
+Kick the ball into their goal.
+   1. THE PITCH - 2 sides, 3 goals
+   2. THE MUDBOWL - 2 sides, 3 goals
+   3. FOURSQUARE - 4 sides, 3 goals
+   4. BONEYARD CUP - 2 sides, 3 goals
+   5. RANDOM ARENA - any arena of this game
+   6. Next: TEAMS
+   7. Prev: GAME
+   8. Back
+Setup # [1-8] (0 = back): Saving save: text_quicksave.tmp
+Saving campaign status: modes
+Level set to Soccer: FOURSQUARE.
+
+--- SETUP: TEAMS ---
+TEAM 1 RED  P1 IVO  1 FIGHTER
+TEAM 2 GREEN  1 BOT
+TEAM 3 BLUE  1 BOT
+TEAM 4 YELLOW  2 BOTS
+STRONG adds a fighter, BRUTAL two.
+   1. SIDES: 4 - 2, 3, 4
+   2. FILL: MIXED - weak to brutal
+   3. LINEUP - fill per team, map units  >
+   4. Next: RULES
+   5. Prev: ARENA
+   6. Back
+Setup # [1-6] (0 = back): 
+--- SETUP: RULES ---
+Respawns and the rest: the Base Camp DIFFICULTY.
+   1. SCORE: MAP - map, 1, 3, 5, 10
+   2. TIME LIMIT: MAP - map, 5 to 20 min
+   3. Next: MATCH
+   4. Prev: TEAMS
+   5. Back
+Setup # [1-5] (0 = back): 
+--- SETUP: MATCH ---
+SOCCER: FOURSQUARE
+  RED TEAM  ACTIVE - COMPANY (1)
+  GREEN TEAM  ACTIVE - MATCHED BOTS (1) FAIR
+  BLUE TEAM  ACTIVE - MATCHED BOTS (1) FAIR
+  YELLOW TEAM  ACTIVE - MATCHED BOTS (2) STRONG
+SCORE: MAP  TIME LIMIT: MAP
+RESPAWNS: OFF  SPAWN DELAY: NORMAL
+PERMADEATH: ON  GENERATORS: NORMAL
+DIFFICULTY: BATTLE  INFINITE GOLD: OFF
+   1. VIEW LEVEL - the arena and every team  >
+   2. GO
+   3. Prev: RULES
+   4. Back
+Setup # [1-4] (0 = back): 
+--- Camp ---
+COMPANY  DEP 1/1  GOLD 5000
+      [X] Ajax         SOLDIER   L= 1 XP=     0
+
+   1. SETUP - SOCCER: FOURSQUARE  >
+Camp # [1-1] (0 = back): 
+Team: Ajax (SOLDIER)
+Gold: 5000
+
+=== Team Build ===
+   1. Roster
+   2. Train Team
+   3. Hire Troops
+   4. Deploy
+   5. Ready
+   6. GO!
+   7. Camp
+   8. Back
+   9. Networking
+  10. Scenario
+  11. Difficulty
+  12. Lineup
+Choice: 
+=== OpenGlad Main Menu ===
+   1. Begin New Game
+   2. Continue Game
+   3. Level Editor
+   4. Game Settings
+   5. Help
+   6. Quit
+   7. Load Company
+   8. Cloud Saves
+Choice: 
